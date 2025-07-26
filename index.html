@@ -3,17 +3,26 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./styles.css" />
 		<title>Namaste React</title>
 	</head>
 	<body>
-		<div id="root"></div>
-		<script>
-			const heading = document.createElement('h1');
-			heading.innerHTML = 'Namaste React';
+		<h1>Hello Top of Root</h1>
 
-			const root = document.getElementById('root');
+		<header id="header"></header>
+		<div id="root">
+			<h1>Akshay is here</h1>
+		</div>
 
-			root.appendChild(heading);
-		</script>
+		<h1>Hello Bottom of Root</h1>
+
+		<script
+			crossorigin
+			src="https://unpkg.com/react@18/umd/react.development.js"></script>
+		<script
+			crossorigin
+			src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+		<script src="./App.js"></script>
 	</body>
 </html>
