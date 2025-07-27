@@ -1,14 +1,22 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
 
-// JSX (transplied before it reaches the JS Engine) - Parcel - Babel
+// React Element
 
-// JSX => Babel converts into React.createElement => ReactElement (JS Object) => HTML Element (render)
+const Title = () => {
+  return <h1 className="head">Namaste React from JSX 🚀</h1>
+}
 
-const jsxHeading = <h1 className="head">Namaste React from JSX 🚀</h1>
-
-console.log(jsxHeading)
+// React Functional Component
+const Heading = () => {
+  return (
+    <div id="container">
+      <Title />
+      <h1>Namaste React Functional Component</h1>
+    </div>
+  )
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 
-root.render(jsxHeading)
+root.render(<Heading />)
