@@ -23,3 +23,26 @@
 ## [BrowsersList](https://browserslist.dev)
 
 - Targeting browsers
+
+# ep-4/code
+
+## Namaste Eats
+
+Components:
+
+- [x] Header
+  - [x] Logo
+  - [x] Nav Items
+- [ ] Body
+  - [ ] Search Bar
+  - [ ] Restaurant List
+    - [ ] Restaurant Card
+      - [ ] Image
+      - [ ] Name
+      - [ ] Rating
+      - [ ] Cusines
+- [ ] Footer
+  - Copyrights
+  - Links
+  - Address
+  - Contact

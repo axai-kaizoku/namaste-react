@@ -1,26 +1,48 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
 
-// React Element
-
-const Title = () => {
-  return <h1 className="head">Namaste React from JSX 🚀</h1>
+const Header = () => {
+  return (
+    <div className="header">
+      <div className="logo-container">
+        <img
+          className="logo"
+          src="https://static.vecteezy.com/system/resources/previews/021/953/308/non_2x/food-ordering-app-logo-with-points-and-fork-shapes-in-the-center-free-vector.jpg"
+          alt="logo"
+          width="56"
+          height="56"
+        />
+      </div>
+      <div className="nav-items">
+        <ul>
+          <li>Home</li>
+          <li>About us</li>
+          <li>Contact us</li>
+          <li>Cart</li>
+        </ul>
+      </div>
+    </div>
+  )
 }
 
-const number = 1000
-
-// React Functional Component
-const Heading = () => {
+const Body = () => {
   return (
-    <div id="container">
-      <Title />
-      <h2>{console.log(number)}</h2>
-      {Title()}
-      <h1>Namaste React Functional Component</h1>
+    <div className="body">
+      <div className="search"></div>
+      <div className="res-container">// Restaurant cart</div>
+    </div>
+  )
+}
+
+const AppLayout = () => {
+  return (
+    <div className="app">
+      <Header />
+      <Body />
     </div>
   )
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 
-root.render(<Heading />)
+root.render(<AppLayout />)
