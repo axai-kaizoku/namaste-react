@@ -1,0 +1,28 @@
+{
+  "name": "namaste-react",
+  "version": "1.0.0",
+  "description": "namaste react course",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axai-kaizoku/namaste-react.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Akshay Yelle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/axai-kaizoku/namaste-react/issues"
+  },
+  "homepage": "https://github.com/axai-kaizoku/namaste-react#readme",
+  "devDependencies": {
+    "parcel": "^2.15.4"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
