@@ -1,43 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react"
+import ReactDOM from "react-dom/client"
 
-const parent = React.createElement('div', { id: 'parent' }, [
-	React.createElement('div', { id: 'child', key: crypto.randomUUID() }, [
-		React.createElement(
-			'h1',
-			{ key: crypto.randomUUID() },
-			'This is an h1 Element',
-		),
-		React.createElement(
-			'h2',
-			{ key: crypto.randomUUID() },
-			'This is an h2 Element',
-		),
-	]),
-	React.createElement('div', { id: 'child2', key: crypto.randomUUID() }, [
-		React.createElement(
-			'h1',
-			{ key: crypto.randomUUID() },
-			'This is an h1 Element',
-		),
-		React.createElement(
-			'h2',
-			{ key: crypto.randomUUID() },
-			'This is an h2 Element',
-		),
-	]),
-]);
+// React Element
 
-// console.log(parent);
+const Title = () => {
+  return <h1 className="head">Namaste React from JSX 🚀</h1>
+}
 
-const heading = React.createElement(
-	'h1',
-	{ id: 'heading' },
-	'Hello World From React !',
-);
+const number = 1000
 
-// console.log(heading);
+// React Functional Component
+const Heading = () => {
+  return (
+    <div id="container">
+      <Title />
+      <h2>{console.log(number)}</h2>
+      {Title()}
+      <h1>Namaste React Functional Component</h1>
+    </div>
+  )
+}
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"))
 
-root.render(parent);
+root.render(<Heading />)
