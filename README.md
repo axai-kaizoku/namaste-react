@@ -1,6 +1,6 @@
 # Namaste React 🚀
 
-## Parcel
+## [Parcel](https://parceljs.org)
 
 - Dev build
 - Local Server
@@ -11,3 +11,15 @@
 - Minification
 - Bundling
 - Compressing
+- Consistent hashing
+- Code splitting
+- Differential bundling - supports old browsers
+- Diagnostic
+- Error handling
+- HTTPs
+- Tree shaking - removing unwanted code
+- Different dev and prod builds
+
+## [BrowsersList](https://browserslist.dev)
+
+- Targeting browsers
