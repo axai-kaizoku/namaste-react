@@ -25,11 +25,32 @@ const Header = () => {
   )
 }
 
+const RestaurantCard = (props) => {
+  return (
+    <div className="res-card">
+      <img
+        width="240"
+        height="160"
+        src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.theimagecompany.in%2Fuploads%2Ftheimagecompanycom%2F2-Mutton-Biryani.jpg&f=1&nofb=1&ipt=457ed9f04cbf51dc0c5506b0fa1c3864a74b980e840346c6f2fda13c8e741a3c"
+        alt="food"
+      />
+      <h3>{props.name}</h3>
+      <h4>{props.cusines}</h4>
+      <h5>{props.rating} stars</h5>
+      <h6>{props.estTime} minutes</h6>
+    </div>
+  )
+}
+
 const Body = () => {
   return (
     <div className="body">
       <div className="search"></div>
-      <div className="res-container">// Restaurant cart</div>
+      <div className="res-container">
+        <RestaurantCard name="Meghana Foods" cusines="Biryani, South indian food" rating={4.4} estTime={38} />
+        <RestaurantCard name="KFC" cusines="Burger, Fast food" rating={4.2} estTime={28} />
+        <RestaurantCard name="Burger King" cusines="Burger, Fast food" rating={4.1} estTime={28} />
+      </div>
     </div>
   )
 }
