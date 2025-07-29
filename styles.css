@@ -60,6 +60,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
+  padding: 2rem 3.5rem;
 }
 
 .res-card {
