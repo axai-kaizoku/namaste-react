@@ -26,30 +26,258 @@ const Header = () => {
 }
 
 const RestaurantCard = (props) => {
+  const { name, cuisines, avgRating, sla, cloudinaryImageId } = props?.info
   return (
     <div className="res-card">
       <img
         width="240"
-        height="160"
-        src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.theimagecompany.in%2Fuploads%2Ftheimagecompanycom%2F2-Mutton-Biryani.jpg&f=1&nofb=1&ipt=457ed9f04cbf51dc0c5506b0fa1c3864a74b980e840346c6f2fda13c8e741a3c"
+        height="260"
+        src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + cloudinaryImageId}
         alt="food"
       />
-      <h3>{props.name}</h3>
-      <h4>{props.cusines}</h4>
-      <h5>{props.rating} stars</h5>
-      <h6>{props.estTime} minutes</h6>
+      <h3>{name}</h3>
+      <h4>{cuisines.join(", ")}</h4>
+      <h5>{avgRating} stars</h5>
+      <h6>{sla?.deliveryTime} minutes</h6>
     </div>
   )
 }
+
+const data = [
+  {
+    info: {
+      id: "43836",
+      name: "McDonald's",
+      cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/3/4716f54a-61ad-4178-8265-51066cacbbd2_43836.jpg",
+      locality: "MG Road",
+      areaName: "Ashok Nagar",
+      costForTwo: "₹400 for two",
+      cuisines: ["Burgers", "Beverages", "Cafe", "Desserts"],
+      avgRating: 4.4,
+      parentId: "630",
+      avgRatingString: "4.4",
+      totalRatingsString: "26K+",
+      sla: {
+        deliveryTime: 16,
+        lastMileTravel: 3,
+        serviceability: "SERVICEABLE",
+        slaString: "15-20 mins",
+        lastMileTravelString: "3.0 km",
+        iconType: "ICON_TYPE_EMPTY",
+      },
+      availability: {
+        nextCloseTime: "2025-07-30 02:45:00",
+        opened: true,
+      },
+      badges: {
+        imageBadges: [
+          {
+            imageId: "Ratnesh_Badges/Rx_Awards_2025/Bolt.png",
+            description: "Delivery!",
+          },
+        ],
+      },
+      isOpen: true,
+      type: "F",
+      badgesV2: {
+        entityBadges: {
+          imageBased: {
+            badgeObject: [
+              {
+                attributes: {
+                  description: "Delivery!",
+                  imageId: "Ratnesh_Badges/Rx_Awards_2025/Bolt.png",
+                },
+              },
+            ],
+          },
+          textBased: {},
+          textExtendedBadges: {},
+        },
+      },
+      aggregatedDiscountInfoV3: {
+        header: "ITEMS",
+        subHeader: "AT ₹119",
+      },
+      differentiatedUi: {
+        displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+        differentiatedUiMediaDetails: {
+          lottie: {},
+          video: {},
+        },
+      },
+      reviewsSummary: {},
+      displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+      restaurantOfferPresentationInfo: {},
+      externalRatings: {
+        aggregatedRating: {
+          rating: "--",
+        },
+      },
+      ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY",
+    },
+    analytics: {
+      context: "seo-data-72f8f487-1efc-475f-ab85-86b26f03ac5d",
+    },
+    cta: {
+      link: "https://www.swiggy.com/city/bangalore/mcdonalds-mg-road-ashok-nagar-rest43836",
+      type: "WEBLINK",
+    },
+  },
+  {
+    info: {
+      id: "10892",
+      name: "Pizza Hut",
+      cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/9/611f45a5-52b7-4ad0-84d7-f605643f46ea_10892.JPG",
+      locality: "Vani Vilas Road",
+      areaName: "Basavanagudi",
+      costForTwo: "₹350 for two",
+      cuisines: ["Pizzas"],
+      avgRating: 4.2,
+      parentId: "721",
+      avgRatingString: "4.2",
+      totalRatingsString: "10K+",
+      sla: {
+        deliveryTime: 21,
+        lastMileTravel: 2.8,
+        serviceability: "SERVICEABLE",
+        slaString: "20-25 mins",
+        lastMileTravelString: "2.8 km",
+        iconType: "ICON_TYPE_EMPTY",
+      },
+      availability: {
+        nextCloseTime: "2025-07-30 02:00:00",
+        opened: true,
+      },
+      badges: {},
+      isOpen: true,
+      type: "F",
+      badgesV2: {
+        entityBadges: {
+          imageBased: {},
+          textBased: {},
+          textExtendedBadges: {},
+        },
+      },
+      aggregatedDiscountInfoV3: {
+        header: "50% OFF",
+        subHeader: "UPTO ₹100",
+      },
+      differentiatedUi: {
+        displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+        differentiatedUiMediaDetails: {
+          lottie: {},
+          video: {},
+        },
+      },
+      reviewsSummary: {},
+      displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+      restaurantOfferPresentationInfo: {},
+      externalRatings: {
+        aggregatedRating: {
+          rating: "--",
+        },
+      },
+      ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY",
+    },
+    analytics: {
+      context: "seo-data-72f8f487-1efc-475f-ab85-86b26f03ac5d",
+    },
+    cta: {
+      link: "https://www.swiggy.com/city/bangalore/pizza-hut-vani-vilas-road-basavanagudi-rest10892",
+      type: "WEBLINK",
+    },
+  },
+  {
+    info: {
+      id: "770772",
+      name: "Olio - The Wood Fired Pizzeria",
+      cloudinaryImageId: "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/17/9981e910-f172-48ba-b08f-c7e5141e7983_770772.JPG",
+      locality: "Ali Askar Road",
+      areaName: "Central Bangalore",
+      costForTwo: "₹300 for two",
+      cuisines: ["Pizzas", "Pastas", "Italian", "Fast Food", "Snacks", "Beverages", "Desserts"],
+      avgRating: 4.4,
+      parentId: "11633",
+      avgRatingString: "4.4",
+      totalRatingsString: "991",
+      sla: {
+        deliveryTime: 27,
+        lastMileTravel: 4.8,
+        serviceability: "SERVICEABLE",
+        slaString: "25-30 mins",
+        lastMileTravelString: "4.8 km",
+        iconType: "ICON_TYPE_EMPTY",
+      },
+      availability: {
+        nextCloseTime: "2025-07-30 05:00:00",
+        opened: true,
+      },
+      badges: {
+        imageBadges: [
+          {
+            imageId: "newg.png",
+            description: "Gourmet",
+          },
+        ],
+      },
+      isOpen: true,
+      type: "F",
+      badgesV2: {
+        entityBadges: {
+          imageBased: {
+            badgeObject: [
+              {
+                attributes: {
+                  description: "Gourmet",
+                  imageId: "newg.png",
+                },
+              },
+            ],
+          },
+          textBased: {},
+          textExtendedBadges: {},
+        },
+      },
+      aggregatedDiscountInfoV3: {
+        header: "ITEMS",
+        subHeader: "AT ₹99",
+      },
+      differentiatedUi: {
+        displayType: "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+        differentiatedUiMediaDetails: {
+          lottie: {},
+          video: {},
+        },
+      },
+      reviewsSummary: {},
+      displayType: "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+      restaurantOfferPresentationInfo: {},
+      externalRatings: {
+        aggregatedRating: {
+          rating: "--",
+        },
+      },
+      ratingsDisplayPreference: "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY",
+    },
+    analytics: {
+      context: "seo-data-72f8f487-1efc-475f-ab85-86b26f03ac5d",
+    },
+    cta: {
+      link: "https://www.swiggy.com/city/bangalore/olio-the-wood-fired-pizzeria-ali-askar-road-central-bangalore-rest770772",
+      type: "WEBLINK",
+    },
+  },
+]
 
 const Body = () => {
   return (
     <div className="body">
       <div className="search"></div>
       <div className="res-container">
-        <RestaurantCard name="Meghana Foods" cusines="Biryani, South indian food" rating={4.4} estTime={38} />
-        <RestaurantCard name="KFC" cusines="Burger, Fast food" rating={4.2} estTime={28} />
-        <RestaurantCard name="Burger King" cusines="Burger, Fast food" rating={4.1} estTime={28} />
+        {data?.map((restaurant) => (
+          <RestaurantCard key={restaurant?.info?.id} info={restaurant?.info} />
+        ))}
       </div>
     </div>
   )
