@@ -1,49 +1,4 @@
-import React from "react"
-import ReactDOM from "react-dom/client"
-
-const Header = () => {
-  return (
-    <div className="header">
-      <div className="logo-container">
-        <img
-          className="logo"
-          src="https://static.vecteezy.com/system/resources/previews/021/953/308/non_2x/food-ordering-app-logo-with-points-and-fork-shapes-in-the-center-free-vector.jpg"
-          alt="logo"
-          width="56"
-          height="56"
-        />
-      </div>
-      <div className="nav-items">
-        <ul>
-          <li>Home</li>
-          <li>About us</li>
-          <li>Contact us</li>
-          <li>Cart</li>
-        </ul>
-      </div>
-    </div>
-  )
-}
-
-const RestaurantCard = (props) => {
-  const { name, cuisines, avgRating, sla, cloudinaryImageId } = props?.info
-  return (
-    <div className="res-card">
-      <img
-        width="240"
-        height="260"
-        src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + cloudinaryImageId}
-        alt="food"
-      />
-      <h3>{name}</h3>
-      <h4>{cuisines.join(", ")}</h4>
-      <h5>{avgRating} stars</h5>
-      <h6>{sla?.deliveryTime} minutes</h6>
-    </div>
-  )
-}
-
-const data = [
+export const data = [
   {
     info: {
       id: "43836",
@@ -269,29 +224,3 @@ const data = [
     },
   },
 ]
-
-const Body = () => {
-  return (
-    <div className="body">
-      <div className="search"></div>
-      <div className="res-container">
-        {data?.map((restaurant) => (
-          <RestaurantCard key={restaurant?.info?.id} info={restaurant?.info} />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-const AppLayout = () => {
-  return (
-    <div className="app">
-      <Header />
-      <Body />
-    </div>
-  )
-}
-
-const root = ReactDOM.createRoot(document.getElementById("root"))
-
-root.render(<AppLayout />)
