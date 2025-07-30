@@ -1,14 +1,10 @@
+import { LOGO_URL } from "../utils/constants"
+
 export const Header = () => {
   return (
     <div className="header">
       <div className="logo-container">
-        <img
-          className="logo"
-          src="https://static.vecteezy.com/system/resources/previews/021/953/308/non_2x/food-ordering-app-logo-with-points-and-fork-shapes-in-the-center-free-vector.jpg"
-          alt="logo"
-          width="56"
-          height="56"
-        />
+        <img className="logo" src={LOGO_URL} alt="logo" width="56" height="56" />
       </div>
       <div className="nav-items">
         <ul>
