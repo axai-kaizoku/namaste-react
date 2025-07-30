@@ -24,6 +24,8 @@
 
 - Targeting browsers
 
+---
+
 # ep-4/code
 
 ## Namaste Eats
@@ -33,16 +35,29 @@ Components:
 - [x] Header
   - [x] Logo
   - [x] Nav Items
-- [ ] Body
+- [x] Body
   - [ ] Search Bar
-  - [ ] Restaurant List
-    - [ ] Restaurant Card
-      - [ ] Image
-      - [ ] Name
-      - [ ] Rating
-      - [ ] Cusines
+  - [x] Restaurant List
+    - [x] Restaurant Card
+      - [x] Image
+      - [x] Name
+      - [x] Rating
+      - [x] Cusines
 - [ ] Footer
   - Copyrights
   - Links
   - Address
   - Contact
+
+---
+
+# React Hooks
+
+(Normal JS utility functions)
+
+- 2 most important hooks
+  - useState
+  - useEffect
+-
+- useState
+  // When ever a state variable changes, react will re-render the componentx
