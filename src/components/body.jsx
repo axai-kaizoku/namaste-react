@@ -1,34 +1,79 @@
 import { data } from "../utils/mock-data"
 import { RestaurantCard } from "./restaurant-card"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export const Body = () => {
-  const mockData = data.map((res) => {
-    if (res.info.name.includes("Pizza")) {
-      res.info.avgRating = 3
-    }
-    return res
-  })
+  const [resData, setResData] = useState([])
+  const [filtered, setFiltered] = useState([])
+  const [searchText, setSearchText] = useState("")
 
-  const [resData, setResData] = useState(mockData)
+  // When ever a state variable changes, react re-renders the component
+  console.log("Body rendered")
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  async function fetchData() {
+    const res = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9628669&lng=77.57750899999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    )
+
+    const data = await res.json()
+
+    setResData(data.data?.cards[1].card.card.gridElements.infoWithStyle.restaurants)
+    setFiltered(data.data?.cards[1].card.card.gridElements.infoWithStyle.restaurants)
+  }
 
   return (
     <div className="body">
       <div className="search">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            const filtered = resData.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()))
+
+            setFiltered(filtered)
+          }}
+        >
+          <input
+            type="search"
+            name="search"
+            id="search"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="search-box"
+            placeholder="Search anything..."
+          />
+          <button type="submit">Search</button>
+        </form>
         <button
           onClick={() => {
-            const filtered = mockData.filter((res) => res.info.avgRating > 4)
-            setResData(filtered)
+            // const filtered = mockData.filter((res) => res.info.avgRating > 4)
+            // setResData(filtered)
           }}
+          className="filter-btn"
         >
           Ratings above 4
         </button>
       </div>
       <div className="res-container">
-        {resData?.map((restaurant) => (
-          <RestaurantCard key={restaurant?.info?.id} info={restaurant?.info} />
-        ))}
+        {resData?.length === 0 ? (
+          <Skeleton />
+        ) : (
+          filtered?.map((restaurant) => <RestaurantCard key={restaurant?.info?.id} info={restaurant?.info} />)
+        )}
       </div>
     </div>
+  )
+}
+
+function Skeleton() {
+  return (
+    <>
+      {[0, 1, 2, 3, 4, 69, 90, 6, 67].map((restaurant) => (
+        <div key={restaurant} className="res-card-skeleton"></div>
+      ))}
+    </>
   )
 }
