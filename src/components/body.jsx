@@ -4,6 +4,11 @@ import { useState, useEffect } from "react"
 
 export const Body = () => {
   const [resData, setResData] = useState([])
+  const [filtered, setFiltered] = useState([])
+  const [searchText, setSearchText] = useState("")
+
+  // When ever a state variable changes, react re-renders the component
+  console.log("Body rendered")
 
   useEffect(() => {
     fetchData()
@@ -17,11 +22,31 @@ export const Body = () => {
     const data = await res.json()
 
     setResData(data.data?.cards[1].card.card.gridElements.infoWithStyle.restaurants)
+    setFiltered(data.data?.cards[1].card.card.gridElements.infoWithStyle.restaurants)
   }
 
   return (
     <div className="body">
       <div className="search">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            const filtered = resData.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()))
+
+            setFiltered(filtered)
+          }}
+        >
+          <input
+            type="search"
+            name="search"
+            id="search"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="search-box"
+            placeholder="Search anything..."
+          />
+          <button type="submit">Search</button>
+        </form>
         <button
           onClick={() => {
             // const filtered = mockData.filter((res) => res.info.avgRating > 4)
@@ -36,7 +61,7 @@ export const Body = () => {
         {resData?.length === 0 ? (
           <Skeleton />
         ) : (
-          resData?.map((restaurant) => <RestaurantCard key={restaurant?.info?.id} info={restaurant?.info} />)
+          filtered?.map((restaurant) => <RestaurantCard key={restaurant?.info?.id} info={restaurant?.info} />)
         )}
       </div>
     </div>
