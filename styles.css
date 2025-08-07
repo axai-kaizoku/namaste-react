@@ -116,6 +116,7 @@ body {
 .search > form {
   display: flex;
   gap: 1rem;
+  margin-bottom: 1.8rem;
 }
 
 .search > form > .search-box {

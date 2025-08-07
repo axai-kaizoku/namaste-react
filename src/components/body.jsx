@@ -26,7 +26,7 @@ export const Body = () => {
   }
 
   return (
-    <div className="body">
+    <div>
       <div className="search">
         <form
           onSubmit={(e) => {
