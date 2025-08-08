@@ -26,7 +26,7 @@ export const Body = () => {
   }
 
   return (
-    <div className="body">
+    <div>
       <div className="search">
         <form
           onSubmit={(e) => {
@@ -52,7 +52,7 @@ export const Body = () => {
             // const filtered = mockData.filter((res) => res.info.avgRating > 4)
             // setResData(filtered)
           }}
-          className="filter-btn"
+          className="btn"
         >
           Ratings above 4
         </button>
@@ -68,11 +68,11 @@ export const Body = () => {
   )
 }
 
-function Skeleton() {
+export function Skeleton() {
   return (
     <>
       {[0, 1, 2, 3, 4, 69, 90, 6, 67].map((restaurant) => (
-        <div key={restaurant} className="res-card-skeleton"></div>
+        <div key={restaurant} className="res-card-skeleton skeleton"></div>
       ))}
     </>
   )

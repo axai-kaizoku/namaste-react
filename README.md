@@ -61,3 +61,8 @@ Components:
 -
 - useState
   // When ever a state variable changes, react will re-render the componentx
+
+# 2 types of Routing
+
+- Client Side Routing (everything is loaded on first load only, if you change routes only components change, no network calls) (also known as Single page applications [SPA])
+- Server Side Routing (whole page is refreshed and network calls are made)
