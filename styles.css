@@ -207,3 +207,11 @@ body {
 .m-4 {
   margin: 0.6rem;
 }
+
+.w-fit {
+  width: fit-content;
+}
+
+.p-4 {
+  padding: 0.6rem;
+}
