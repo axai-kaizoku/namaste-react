@@ -66,3 +66,12 @@ Components:
 
 - Client Side Routing (everything is loaded on first load only, if you change routes only components change, no network calls) (also known as Single page applications [SPA])
 - Server Side Routing (whole page is refreshed and network calls are made)
+
+# Class components
+
+- [Lifecycle methods](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+  - constructor
+  - componentDidMount
+  - componentDidUpdate
+  - componentWillUnmount
+  - render
