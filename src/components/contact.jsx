@@ -5,7 +5,7 @@ export const Contact = () => {
   let [newCount, setNewCount] = useState(3)
 
   useEffect(() => {
-    console.clear("count changed new", count)
+    // console.clear("count changed new", count)
   }, [])
 
   useEffect(() => {
