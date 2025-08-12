@@ -75,3 +75,13 @@ Components:
   - componentDidUpdate
   - componentWillUnmount
   - render
+
+## To imporve performance of app
+
+// Chunking
+// Code spliting
+// Dynamic Bundling
+// Lazy loading
+// Dynamic import
+// On demand loading
+// Image optimization

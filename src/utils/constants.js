@@ -8,3 +8,6 @@ export const BASE_RESTAURANT_URL =
 
 // "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9628669&lng=77.57750899999999&restaurantId=10892&catalog_qa=undefined&submitAction=ENTER"
 export const BASE_RESTAURANT_URL_END = "&catalog_qa=undefined&submitAction=ENTER"
+
+export const BASE_ALL_RESTAURANTS_URL =
+  "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9628669&lng=77.57750899999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"

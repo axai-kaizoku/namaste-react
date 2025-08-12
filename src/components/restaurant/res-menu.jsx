@@ -1,24 +1,14 @@
-import { useEffect, useState } from "react"
-import { BASE_IMG_URL, BASE_RESTAURANT_URL, BASE_RESTAURANT_URL_END } from "../utils/constants"
+import { useState } from "react"
 import { useParams } from "react-router"
+import { useRestaurantMenu } from "../../hooks/use-restaurant-menu"
+import { BASE_IMG_URL } from "../../utils/constants"
 
 export default function ResMenu() {
-  const [resInfo, setResInfo] = useState(null)
   const [showImage, setShowImage] = useState(undefined)
   const { id } = useParams()
   // console.log(params)
 
-  useEffect(() => {
-    fetchMenu()
-  }, [])
-
-  async function fetchMenu() {
-    const res = await fetch(BASE_RESTAURANT_URL + id + BASE_RESTAURANT_URL_END)
-
-    const data = await res.json()
-
-    setResInfo(data?.data)
-  }
+  const resInfo = useRestaurantMenu(id)
 
   if (!resInfo)
     return (

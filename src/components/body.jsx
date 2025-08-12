@@ -1,28 +1,43 @@
-import { data } from "../utils/mock-data"
+import { useEffect, useState } from "react"
+import { useOnlineStatus } from "../hooks/use-online-status"
+import { BASE_ALL_RESTAURANTS_URL } from "../utils/constants"
 import { RestaurantCard } from "./restaurant-card"
-import { useState, useEffect } from "react"
 
 export const Body = () => {
   const [resData, setResData] = useState([])
   const [filtered, setFiltered] = useState([])
   const [searchText, setSearchText] = useState("")
 
+  const onlineState = useOnlineStatus()
+
   // When ever a state variable changes, react re-renders the component
-  console.log("Body rendered")
+  // console.log("Body rendered")
 
   useEffect(() => {
     fetchData()
   }, [])
 
   async function fetchData() {
-    const res = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9628669&lng=77.57750899999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    )
+    const res = await fetch(BASE_ALL_RESTAURANTS_URL)
 
     const data = await res.json()
 
-    setResData(data.data?.cards[1].card.card.gridElements.infoWithStyle.restaurants)
-    setFiltered(data.data?.cards[1].card.card.gridElements.infoWithStyle.restaurants)
+    let restaurantsData = data.data?.cards[1].card.card.gridElements.infoWithStyle.restaurants
+
+    if (!data.data?.cards[1].card.card.gridElements) {
+      restaurantsData = data.data?.cards[2].card.card.gridElements.infoWithStyle.restaurants
+    }
+
+    setResData(restaurantsData)
+    setFiltered(restaurantsData)
+  }
+
+  if (!onlineState) {
+    return (
+      <div>
+        <h1 className="text-center">Look's like you've gone offline !!</h1>
+      </div>
+    )
   }
 
   return (
