@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react"
+import React, { lazy, Suspense, useEffect } from "react"
 import ReactDOM from "react-dom/client"
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router"
 import { Body } from "./components/body"
@@ -6,15 +6,18 @@ import { Contact } from "./components/contact"
 import { Error } from "./components/error"
 import { Header } from "./components/header"
 import ResMenu from "./components/restaurant/res-menu"
+import { applyTheme, getStoredTheme } from "./utils/theme-config"
 
 const About = lazy(() => import("./components/about"))
 const Grocery = lazy(() => import("./components/grocery"))
 
 const AppLayout = () => {
+  // const { theme } = useTheme()
+
   return (
-    <div className="app">
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <div className="body">
+      <div className="max-w-7xl mx-auto p-5 flex w-full grow gap-5">
         <Outlet />
       </div>
     </div>
@@ -59,6 +62,17 @@ const router = createBrowserRouter([
   },
 ])
 
+// Theme provider wrapper
+const ThemedApp = () => {
+  useEffect(() => {
+    // Initialize theme on app load
+    const storedTheme = getStoredTheme()
+    applyTheme(storedTheme)
+  }, [])
+
+  return <RouterProvider router={router} />
+}
+
 const root = ReactDOM.createRoot(document.getElementById("root"))
 
-root.render(<RouterProvider router={router} />)
+root.render(<ThemedApp />)
