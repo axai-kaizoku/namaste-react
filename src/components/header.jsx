@@ -2,6 +2,7 @@ import { LOGO_URL } from "../utils/constants"
 import { useState } from "react"
 import { Link } from "react-router"
 import { useOnlineStatus } from "../hooks/use-online-status"
+import ThemeToggle from "./theme-toggle"
 
 export const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login")
@@ -18,8 +19,10 @@ export const Header = () => {
       <div className="nav-items">
         <ul>
           <li>Online State: {onlineState ? "✅" : "❌"}</li>
-          <li>
-            <Link to="/">Home</Link>
+          <li className="text-5xl">
+            <Link to="/" className="text-5xl">
+              Home
+            </Link>
           </li>
           <li>
             <Link to="/about">About us</Link>
@@ -31,6 +34,9 @@ export const Header = () => {
             <Link to="/grocery">Grocery</Link>
           </li>
           <li>Cart</li>
+          <li>
+            <ThemeToggle />
+          </li>
           <button
             className="login-btn"
             onClick={() => {

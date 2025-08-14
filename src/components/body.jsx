@@ -42,7 +42,7 @@ export const Body = () => {
 
   return (
     <div>
-      <div className="search">
+      <div className="search bg-amber-50 dark:bg-amber-300">
         <form
           onSubmit={(e) => {
             e.preventDefault()

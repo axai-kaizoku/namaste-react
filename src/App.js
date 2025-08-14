@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react"
+import React, { lazy, Suspense, useEffect } from "react"
 import ReactDOM from "react-dom/client"
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router"
 import { Body } from "./components/body"
@@ -6,15 +6,20 @@ import { Contact } from "./components/contact"
 import { Error } from "./components/error"
 import { Header } from "./components/header"
 import ResMenu from "./components/restaurant/res-menu"
+import { useTheme } from "./hooks/use-theme"
+import { getStoredTheme, applyTheme } from "./utils/theme-config"
+import { cn } from "./utils/utils"
 
 const About = lazy(() => import("./components/about"))
 const Grocery = lazy(() => import("./components/grocery"))
 
 const AppLayout = () => {
+  const { theme } = useTheme()
+
   return (
-    <div className="app">
+    <div className={cn("w-full h-full bg-background  text-foreground transition-colors", theme === "dark" && "dark")}>
       <Header />
-      <div className="body">
+      <div className="">
         <Outlet />
       </div>
     </div>
@@ -59,6 +64,17 @@ const router = createBrowserRouter([
   },
 ])
 
+// Theme provider wrapper
+const ThemedApp = () => {
+  useEffect(() => {
+    // Initialize theme on app load
+    const storedTheme = getStoredTheme()
+    applyTheme(storedTheme)
+  }, [])
+
+  return <RouterProvider router={router} />
+}
+
 const root = ReactDOM.createRoot(document.getElementById("root"))
 
-root.render(<RouterProvider router={router} />)
+root.render(<ThemedApp />)
