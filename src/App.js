@@ -6,20 +6,18 @@ import { Contact } from "./components/contact"
 import { Error } from "./components/error"
 import { Header } from "./components/header"
 import ResMenu from "./components/restaurant/res-menu"
-import { useTheme } from "./hooks/use-theme"
-import { getStoredTheme, applyTheme } from "./utils/theme-config"
-import { cn } from "./utils/utils"
+import { applyTheme, getStoredTheme } from "./utils/theme-config"
 
 const About = lazy(() => import("./components/about"))
 const Grocery = lazy(() => import("./components/grocery"))
 
 const AppLayout = () => {
-  const { theme } = useTheme()
+  // const { theme } = useTheme()
 
   return (
-    <div className={cn("w-full h-full bg-background  text-foreground transition-colors", theme === "dark" && "dark")}>
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <div className="">
+      <div className="max-w-7xl mx-auto p-5 flex w-full grow gap-5">
         <Outlet />
       </div>
     </div>

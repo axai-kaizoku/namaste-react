@@ -10,43 +10,51 @@ export const Header = () => {
   const onlineState = useOnlineStatus()
 
   return (
-    <div className="header">
+    <>
+      <header className="sticky top-0 z-10 bg-card shadow-sm">
+        <div className="max-w-7xl mx-auto flex justify-between items-center flex-wrap gap-5 px-5 py-3">
+          <Link to="/" className="text-2xl font-bold text-primary">
+            <img src={LOGO_URL} alt="logo" width="56" height="56" className="rounded" />
+          </Link>
+          <ul className="flex items-center gap-5">
+            <li>Online State: {onlineState ? "✅" : "❌"}</li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About us</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact us</Link>
+            </li>
+            <li>
+              <Link to="/grocery">Grocery</Link>
+            </li>
+            <li>Cart</li>
+            <li>
+              <ThemeToggle />
+            </li>
+            <button
+              className="login-btn"
+              onClick={() => {
+                btnNameReact === "Login" ? setBtnNameReact("Logout") : setBtnNameReact("Login")
+              }}
+            >
+              {btnNameReact}
+            </button>
+          </ul>
+        </div>
+      </header>
+      {/* <div className="header">
       <div className="logo-container">
         <Link to="/">
           <img className="logo" src={LOGO_URL} alt="logo" width="56" height="56" />
         </Link>
       </div>
       <div className="nav-items">
-        <ul>
-          <li>Online State: {onlineState ? "✅" : "❌"}</li>
-          <li className="text-5xl">
-            <Link to="/" className="text-5xl">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/about">About us</Link>
-          </li>
-          <li>
-            <Link to="/contact">Contact us</Link>
-          </li>
-          <li>
-            <Link to="/grocery">Grocery</Link>
-          </li>
-          <li>Cart</li>
-          <li>
-            <ThemeToggle />
-          </li>
-          <button
-            className="login-btn"
-            onClick={() => {
-              btnNameReact === "Login" ? setBtnNameReact("Logout") : setBtnNameReact("Login")
-            }}
-          >
-            {btnNameReact}
-          </button>
-        </ul>
+       
       </div>
-    </div>
+    </div> */}
+    </>
   )
 }
