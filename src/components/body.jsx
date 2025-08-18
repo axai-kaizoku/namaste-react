@@ -22,7 +22,7 @@ export const Body = () => {
 
     const data = await res.json()
 
-    let restaurantsData = data.data?.cards[1].card.card.gridElements.infoWithStyle.restaurants
+    let restaurantsData = data.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
 
     if (!data.data?.cards[1].card.card.gridElements) {
       restaurantsData = data.data?.cards[2].card.card.gridElements.infoWithStyle.restaurants
@@ -41,9 +41,10 @@ export const Body = () => {
   }
 
   return (
-    <div>
-      <div className="search">
+    <main className="w-full min-w-0 h-full space-y-5">
+      <div className="w-full flex">
         <form
+          className="w-full flex gap-2 h-fit"
           onSubmit={(e) => {
             e.preventDefault()
             const filtered = resData.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()))
@@ -52,34 +53,36 @@ export const Body = () => {
           }}
         >
           <input
-            type="search"
+            type="text"
             name="search"
             id="search"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="search-box"
+            className="p-2 border border-input rounded-md max-w-48"
             placeholder="Search anything..."
           />
-          <button type="submit">Search</button>
+          <button type="submit" className="p-2 border rounded-md">
+            Search
+          </button>
         </form>
         <button
           onClick={() => {
             // const filtered = mockData.filter((res) => res.info.avgRating > 4)
             // setResData(filtered)
           }}
-          className="btn"
+          className="p-2 border rounded-md h-fit w-fit whitespace-nowrap hidden sm:block"
         >
           Ratings above 4
         </button>
       </div>
-      <div className="res-container">
+      <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 items-start  gap-3 h-full w-full">
         {resData?.length === 0 ? (
           <Skeleton />
         ) : (
           filtered?.map((restaurant) => <RestaurantCard key={restaurant?.info?.id} info={restaurant?.info} />)
         )}
       </div>
-    </div>
+    </main>
   )
 }
 
