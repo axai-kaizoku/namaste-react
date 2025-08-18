@@ -1,7 +1,7 @@
-import { LOGO_URL } from "../utils/constants"
 import { useState } from "react"
 import { Link } from "react-router"
 import { useOnlineStatus } from "../hooks/use-online-status"
+import { LOGO_URL } from "../utils/constants"
 import ThemeToggle from "./theme-toggle"
 
 export const Header = () => {
@@ -16,7 +16,7 @@ export const Header = () => {
           <Link to="/" className="text-2xl font-bold text-primary">
             <img src={LOGO_URL} alt="logo" width="56" height="56" className="rounded" />
           </Link>
-          <ul className="flex items-center gap-5">
+          <ul className="hidden items-center gap-5 sm:flex">
             <li>Online State: {onlineState ? "✅" : "❌"}</li>
             <li>
               <Link to="/">Home</Link>

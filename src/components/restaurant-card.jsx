@@ -5,7 +5,7 @@ export const RestaurantCard = (props) => {
   const { name, cuisines, avgRating, sla, cloudinaryImageId } = props?.info
   return (
     <Link to={"/restaurant/" + props?.info?.id} className="block">
-      <div className="w-56 h-fit border p-3 rounded-lg bg-card flex flex-col gap-2">
+      <div className="w-48  sm:w-56 h-fit   sm:aspect-[1/2] border p-3 rounded-lg bg-card flex flex-col justify-between  gap-2">
         <img
           width="240"
           height="260"

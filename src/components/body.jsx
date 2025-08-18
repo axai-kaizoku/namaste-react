@@ -22,7 +22,7 @@ export const Body = () => {
 
     const data = await res.json()
 
-    let restaurantsData = data.data?.cards[1].card.card.gridElements.infoWithStyle.restaurants
+    let restaurantsData = data.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
 
     if (!data.data?.cards[1].card.card.gridElements) {
       restaurantsData = data.data?.cards[2].card.card.gridElements.infoWithStyle.restaurants
@@ -58,7 +58,7 @@ export const Body = () => {
             id="search"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="p-2 border border-input rounded-md"
+            className="p-2 border border-input rounded-md max-w-48"
             placeholder="Search anything..."
           />
           <button type="submit" className="p-2 border rounded-md">
@@ -70,12 +70,12 @@ export const Body = () => {
             // const filtered = mockData.filter((res) => res.info.avgRating > 4)
             // setResData(filtered)
           }}
-          className="p-2 border rounded-md h-fit w-fit whitespace-nowrap"
+          className="p-2 border rounded-md h-fit w-fit whitespace-nowrap hidden sm:block"
         >
           Ratings above 4
         </button>
       </div>
-      <div className="flex flex-wrap justify-between items-start  gap-3 h-full w-full">
+      <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 items-start  gap-3 h-full w-full">
         {resData?.length === 0 ? (
           <Skeleton />
         ) : (

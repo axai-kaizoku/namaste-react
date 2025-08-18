@@ -7,14 +7,12 @@ const ThemeToggle = () => {
 
   return (
     <div className="flex items-center gap-2">
-      {/* Quick toggle button */}
       <button
         onClick={toggleTheme}
         className="p-2 rounded-lg bg-muted hover:bg-accent transition-colors"
         title={`Switch to ${isDark ? "light" : "dark"} mode`}
       >
         {isDark ? (
-          // Sun icon for light mode
           <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"
@@ -23,14 +21,12 @@ const ThemeToggle = () => {
             />
           </svg>
         ) : (
-          // Moon icon for dark mode
           <svg className="w-5 h-5 text-foreground" fill="currentColor" viewBox="0 0 20 20">
             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
           </svg>
         )}
       </button>
 
-      {/* Dropdown for theme selection */}
       <select
         value={theme}
         onChange={(e) => setThemeMode(e.target.value)}
