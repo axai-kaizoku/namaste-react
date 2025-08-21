@@ -44,9 +44,10 @@ export const Body = () => {
 
   return (
     <main className="w-full min-w-0 h-full space-y-5">
-      <div className="w-full flex">
+      <div className="w-full flex justify-start gap-2">
         <form
-          className="w-full flex gap-2 h-fit"
+          id="search-bar"
+          className="w-fit flex gap-2 h-fit"
           onSubmit={(e) => {
             e.preventDefault()
             const filtered = resData.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()))
@@ -60,22 +61,30 @@ export const Body = () => {
             id="search"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="p-2 border border-input rounded-md max-w-48"
+            className="p-2 border border-input rounded-md max-w-48 text-sm"
             placeholder="Search anything..."
           />
-          <button type="submit" className="p-2 border rounded-md">
-            Search
-          </button>
+          <button type="submit">Search</button>
         </form>
         <button
           onClick={() => {
-            // const filtered = mockData.filter((res) => res.info.avgRating > 4)
-            // setResData(filtered)
+            const filtered = resData.filter((res) => res.info.avgRating > 4.5)
+            setFiltered(filtered)
           }}
-          className="p-2 border rounded-md h-fit w-fit whitespace-nowrap hidden sm:block"
         >
-          Ratings above 4
+          Ratings above 4.5
         </button>
+        {JSON.stringify(filtered) !== JSON.stringify(resData) ? (
+          <button
+            className="bg-transparent border hover:border-accent-foreground hover:border-dashed"
+            onClick={() => {
+              setFiltered(resData)
+              if (searchText) setSearchText("")
+            }}
+          >
+            Clear
+          </button>
+        ) : null}
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 items-start  gap-3 h-full w-full">
         {resData?.length === 0 ? (
