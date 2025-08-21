@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { useOnlineStatus } from "../hooks/use-online-status"
-import { BASE_ALL_RESTAURANTS_URL } from "../utils/constants"
-import { RestaurantCard } from "./restaurant-card"
+import { useOnlineStatus } from "../../hooks/use-online-status"
+import { BASE_ALL_RESTAURANTS_URL } from "../../utils/constants"
+import { RestaurantCard, withPromtedLabel } from "./../restaurant-card"
 
 export const Body = () => {
   const [resData, setResData] = useState([])
@@ -9,6 +9,8 @@ export const Body = () => {
   const [searchText, setSearchText] = useState("")
 
   const onlineState = useOnlineStatus()
+
+  const RestaurantCardPromoted = withPromtedLabel(RestaurantCard)
 
   // When ever a state variable changes, react re-renders the component
   // console.log("Body rendered")
@@ -79,7 +81,13 @@ export const Body = () => {
         {resData?.length === 0 ? (
           <Skeleton />
         ) : (
-          filtered?.map((restaurant) => <RestaurantCard key={restaurant?.info?.id} info={restaurant?.info} />)
+          filtered?.map((restaurant) =>
+            restaurant?.info?.aggregatedDiscountInfoV3 ? (
+              <RestaurantCardPromoted key={restaurant?.info?.id} info={restaurant?.info} />
+            ) : (
+              <RestaurantCard key={restaurant?.info?.id} info={restaurant?.info} />
+            )
+          )
         )}
       </div>
     </main>
