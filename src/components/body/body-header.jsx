@@ -1,5 +1,5 @@
 export const BodyHeader = ({ setFiltered, resData, searchText, setSearchText, filtered }) => {
-  console.log("BodyHeader")
+  // console.log("BodyHeader")
   return (
     <header className="w-full flex justify-start gap-2">
       <form

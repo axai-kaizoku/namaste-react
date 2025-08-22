@@ -3,7 +3,7 @@ import { Skeleton } from "../ui/skeleton"
 
 export const RestuarantCardsGrid = ({ data, loading }) => {
   const RestaurantCardPromoted = withPromtedLabel(RestaurantCard)
-  console.log("RestuarantCardsGrid")
+  // console.log("RestuarantCardsGrid")
   return (
     <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 items-start  gap-3 h-full w-full">
       {loading ? (
@@ -23,11 +23,16 @@ export const RestuarantCardsGrid = ({ data, loading }) => {
   )
 }
 
-export function GridSkeleton() {
+export function GridSkeleton({ size }) {
   return (
     <>
-      {[0, 1, 2, 3, 4, 69, 90, 6, 67].map((i) => (
-        <Skeleton key={i} />
+      {Array.from({ length: size ?? 5 }).map((_, i) => (
+        <Skeleton
+          key={i}
+          className={
+            "w-48 sm:w-56 h-60 sm:aspect-[1/2] border p-3 rounded-lg bg-card/40 hover:bg-card flex flex-col justify-between  gap-2"
+          }
+        />
       ))}
     </>
   )

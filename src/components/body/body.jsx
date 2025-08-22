@@ -3,6 +3,7 @@ import { useOnlineStatus } from "../../hooks/use-online-status"
 import { BASE_ALL_RESTAURANTS_URL } from "../../utils/constants"
 import { RestuarantCardsGrid } from "./body-grid"
 import { BodyHeader } from "./body-header"
+import { cn } from "../../utils/utils"
 
 export const Body = () => {
   const [resData, setResData] = useState([])
@@ -12,11 +13,11 @@ export const Body = () => {
   const onlineState = useOnlineStatus()
 
   // When ever a state variable changes, react re-renders the component
-  console.log("Main Body rendered")
+  // console.log("Main Body rendered")
 
   useEffect(() => {
     fetchData()
-    console.log("Main Body, useEffect")
+    // console.log("Main Body, useEffect")
   }, [])
 
   async function fetchData() {
@@ -31,7 +32,7 @@ export const Body = () => {
     }
 
     setResData(restaurantsData)
-    setFiltered(restaurantsData)
+    // setFiltered(restaurantsData)
   }
 
   if (!onlineState) {
@@ -51,27 +52,28 @@ export const Body = () => {
         setSearchText={setSearchText}
         filtered={filtered}
       />
-      {JSON.stringify(filtered?.length)}
       <RestuarantCardsGrid loading={resData?.length === 0} data={filtered} />
-      <BodyPagination data={filtered} totalCount={resData?.length} setFiltered={setFiltered} />
+      {resData?.length ? (
+        <BodyPagination data={resData} totalCount={resData?.length} setFiltered={setFiltered} />
+      ) : null}
     </main>
   )
 }
 
 export const BodyPagination = ({ totalCount, data, setFiltered }) => {
-  console.log("BodyPagination")
-  const pageSize = 5
+  // console.log("BodyPagination")
+  const defaultPageSize = 5
+  const [pageSize, setPageSize] = useState(defaultPageSize)
   const totalPages = totalCount / pageSize
   const [currentPage, setCurrentPage] = useState(1)
 
-  // useEffect(() => {
-  //   const filtered = data?.slice(0, pageSize * currentPage)
-  //   setFiltered(filtered)
-  //   console.log("BodyPagination, useEffect,", { filtered })
-  // }, [currentPage])
+  useEffect(() => {
+    const filtered = data?.slice(pageSize * (currentPage - 1), pageSize * currentPage)
+    setFiltered(filtered)
+    // console.log("BodyPagination, useEffect,", { filtered })
+  }, [currentPage, pageSize])
 
   function handlePrev() {
-    // console.log(currentPage)
     if (currentPage !== 1) {
       setCurrentPage((prev) => prev - 1)
     }
@@ -87,12 +89,20 @@ export const BodyPagination = ({ totalCount, data, setFiltered }) => {
     // const filtered = data?.slice(pageSize * currentPage)
     // setFiltered(filtered)
   }
+
   return (
-    <footer className="w-full flex justify-center items-center">
-      <div className="w-60 flex justify-evenly items-center">
-        <button onClick={handlePrev}>{`<`}</button>
+    <footer className="w-full flex justify-end items-center">
+      <div className="w-fit flex gap-4 items-center">
+        Page {currentPage} of {totalPages}{" "}
+        <button onClick={handlePrev} className={cn(currentPage === 1 && "cursor-not-allowed")}>{`<`}</button>
         <span className="text-xl font-mono">{currentPage}</span>
-        <button onClick={handleNext}>{`>`}</button>
+        <button onClick={handleNext} className={cn(currentPage >= totalPages && "cursor-not-allowed")}>{`>`}</button>
+        <select defaultValue={"1"} onChange={(e) => setPageSize(Number(e.target.value))}>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
       </div>
     </footer>
   )
