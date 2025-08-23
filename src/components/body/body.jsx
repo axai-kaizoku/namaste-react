@@ -51,31 +51,47 @@ export const Body = () => {
         filtered={filtered}
       />
       <RestuarantCardsGrid loading={resData?.length === 0} data={filtered} />
-      {resData?.length ? <CursorBasedPagination data={resData} setFiltered={setFiltered} /> : null}
+      {resData?.length ? <CursorBasedPagination data={resData} setFiltered={setFiltered} filtered={filtered} /> : null}
       {/* {resData?.length ? <BodyPagination data={resData} setFiltered={setFiltered} /> : null} */}
     </main>
   )
 }
 
-export const CursorBasedPagination = ({ data: ogData, setFiltered }) => {
+export const CursorBasedPagination = ({ data: ogData, setFiltered, filtered }) => {
   const pageSize = 5
   const data = ogData?.map((e, i) => ({ ...e, pId: i + 1 }))
-  const [size, setSize] = useState(pageSize)
+  const [cursor, setCursor] = useState(null)
 
   useEffect(() => {
-    const slicedData = data?.slice(0, size)
-    setFiltered(slicedData)
-  }, [size])
+    handlePagination()
+  }, [])
+
+  const handlePagination = () => {
+    let newItems = []
+    if (cursor === null) {
+      newItems = data?.slice(0, pageSize) || []
+    } else {
+      const cursorIndex = data?.findIndex((itm) => itm.pId === cursor)
+      if (cursorIndex !== -1) {
+        newItems = data?.slice(cursorIndex + 1, cursorIndex + 1 + pageSize)
+      }
+    }
+
+    if (newItems.length > 0) {
+      setCursor(newItems[newItems.length - 1].pId)
+    }
+
+    setFiltered((prev) => [...prev, ...newItems])
+  }
+
+  const hasMore = filtered?.length < data?.length
 
   return (
     <div className="w-full flex justify-center items-center">
       <button
-        disabled={data?.length <= size}
+        disabled={!hasMore}
         onClick={() => {
-          if (data?.length >= size) {
-            // console.log("load more called !")
-            setSize((prev) => prev + 5)
-          }
+          handlePagination()
         }}
         className={"disabled:cursor-not-allowed"}
       >
