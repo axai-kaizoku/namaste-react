@@ -4,6 +4,7 @@ import { BASE_ALL_RESTAURANTS_URL } from "../../utils/constants"
 import { RestuarantCardsGrid } from "./body-grid"
 import { BodyHeader } from "./body-header"
 import { cn } from "../../utils/utils"
+import Select from "../ui/select"
 
 export const Body = () => {
   const [resData, setResData] = useState([])
@@ -93,11 +94,19 @@ export const BodyPagination = ({ totalCount, data, setFiltered }) => {
   return (
     <footer className="w-full flex justify-end items-center">
       <div className="w-fit flex gap-4 items-center">
-        Page {currentPage} of {totalPages}{" "}
-        <button onClick={handlePrev} className={cn(currentPage === 1 && "cursor-not-allowed")}>{`<`}</button>
+        Page {currentPage} of {Math.ceil(totalPages)}{" "}
+        <button
+          disabled={currentPage === 1}
+          onClick={handlePrev}
+          className={"disabled:cursor-not-allowed"}
+        >{`<`}</button>
         <span className="text-xl font-mono">{currentPage}</span>
-        <button onClick={handleNext} className={cn(currentPage >= totalPages && "cursor-not-allowed")}>{`>`}</button>
-        <select defaultValue={"1"} onChange={(e) => setPageSize(Number(e.target.value))}>
+        <button
+          disabled={currentPage >= totalPages}
+          onClick={handleNext}
+          className={"disabled:cursor-not-allowed"}
+        >{`>`}</button>
+        <select name="page-size" defaultValue={"1"} onChange={(e) => setPageSize(Number(e.target.value))}>
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="15">15</option>

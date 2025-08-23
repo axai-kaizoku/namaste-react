@@ -1,6 +1,7 @@
 import React from "react"
 import { useTheme } from "../hooks/use-theme"
 import { THEMES } from "../utils/theme-config"
+import Select from "./ui/select"
 
 const ThemeToggle = () => {
   const { theme, toggleTheme, setThemeMode, isDark } = useTheme()
@@ -26,16 +27,18 @@ const ThemeToggle = () => {
           </svg>
         )}
       </button>
-
-      <select
-        value={theme}
-        onChange={(e) => setThemeMode(e.target.value)}
-        className="px-3 py-1 rounded-md bg-input text-foreground border border-border text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-      >
-        <option value={THEMES.LIGHT}>Light</option>
-        <option value={THEMES.DARK}>Dark</option>
-        <option value={THEMES.SYSTEM}>System</option>
-      </select>
+      <Select value={theme} onValueChange={setThemeMode}>
+        <Select.Trigger>
+          {theme === THEMES.LIGHT && "Light"}
+          {theme === THEMES.DARK && "Dark"}
+          {theme === THEMES.SYSTEM && "System"}
+        </Select.Trigger>
+        <Select.Content>
+          <Select.Item value={THEMES.LIGHT}>Light</Select.Item>
+          <Select.Item value={THEMES.DARK}>Dark</Select.Item>
+          <Select.Item value={THEMES.SYSTEM}>System</Select.Item>
+        </Select.Content>
+      </Select>
     </div>
   )
 }
