@@ -3,8 +3,6 @@ import { useOnlineStatus } from "../../hooks/use-online-status"
 import { BASE_ALL_RESTAURANTS_URL } from "../../utils/constants"
 import { RestuarantCardsGrid } from "./body-grid"
 import { BodyHeader } from "./body-header"
-import { cn } from "../../utils/utils"
-import Select from "../ui/select"
 
 export const Body = () => {
   const [resData, setResData] = useState([])
@@ -33,7 +31,6 @@ export const Body = () => {
     }
 
     setResData(restaurantsData)
-    // setFiltered(restaurantsData)
   }
 
   if (!onlineState) {
@@ -54,65 +51,36 @@ export const Body = () => {
         filtered={filtered}
       />
       <RestuarantCardsGrid loading={resData?.length === 0} data={filtered} />
-      {resData?.length ? (
-        <BodyPagination data={resData} totalCount={resData?.length} setFiltered={setFiltered} />
-      ) : null}
+      {resData?.length ? <CursorBasedPagination data={resData} setFiltered={setFiltered} /> : null}
+      {/* {resData?.length ? <BodyPagination data={resData} setFiltered={setFiltered} /> : null} */}
     </main>
   )
 }
 
-export const BodyPagination = ({ totalCount, data, setFiltered }) => {
-  // console.log("BodyPagination")
-  const defaultPageSize = 5
-  const [pageSize, setPageSize] = useState(defaultPageSize)
-  const totalPages = totalCount / pageSize
-  const [currentPage, setCurrentPage] = useState(1)
+export const CursorBasedPagination = ({ data: ogData, setFiltered }) => {
+  const pageSize = 5
+  const data = ogData?.map((e, i) => ({ ...e, pId: i + 1 }))
+  const [size, setSize] = useState(pageSize)
 
   useEffect(() => {
-    const filtered = data?.slice(pageSize * (currentPage - 1), pageSize * currentPage)
-    setFiltered(filtered)
-    // console.log("BodyPagination, useEffect,", { filtered })
-  }, [currentPage, pageSize])
-
-  function handlePrev() {
-    if (currentPage !== 1) {
-      setCurrentPage((prev) => prev - 1)
-    }
-    // const filtered = data?.slice(pageSize * currentPage)
-    // setFiltered(filtered)
-  }
-
-  function handleNext() {
-    // console.log(currentPage)
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1)
-    }
-    // const filtered = data?.slice(pageSize * currentPage)
-    // setFiltered(filtered)
-  }
+    const slicedData = data?.slice(0, size)
+    setFiltered(slicedData)
+  }, [size])
 
   return (
-    <footer className="w-full flex justify-end items-center">
-      <div className="w-fit flex gap-4 items-center">
-        Page {currentPage} of {Math.ceil(totalPages)}{" "}
-        <button
-          disabled={currentPage === 1}
-          onClick={handlePrev}
-          className={"disabled:cursor-not-allowed"}
-        >{`<`}</button>
-        <span className="text-xl font-mono">{currentPage}</span>
-        <button
-          disabled={currentPage >= totalPages}
-          onClick={handleNext}
-          className={"disabled:cursor-not-allowed"}
-        >{`>`}</button>
-        <select name="page-size" defaultValue={"1"} onChange={(e) => setPageSize(Number(e.target.value))}>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-          <option value="20">20</option>
-        </select>
-      </div>
-    </footer>
+    <div className="w-full flex justify-center items-center">
+      <button
+        disabled={data?.length <= size}
+        onClick={() => {
+          if (data?.length >= size) {
+            // console.log("load more called !")
+            setSize((prev) => prev + 5)
+          }
+        }}
+        className={"disabled:cursor-not-allowed"}
+      >
+        Load More
+      </button>
+    </div>
   )
 }
