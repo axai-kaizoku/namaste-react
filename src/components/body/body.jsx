@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { useOnlineStatus } from "../../hooks/use-online-status"
 import { BASE_ALL_RESTAURANTS_URL } from "../../utils/constants"
-import { RestaurantCard, withPromtedLabel } from "./../restaurant-card"
+import { RestuarantCardsGrid } from "./body-grid"
+import { BodyHeader } from "./body-header"
 
 export const Body = () => {
   const [resData, setResData] = useState([])
@@ -10,8 +11,6 @@ export const Body = () => {
   const [error, setError] = useState(false)
 
   const onlineState = useOnlineStatus()
-
-  const RestaurantCardPromoted = withPromtedLabel(RestaurantCard)
 
   // When ever a state variable changes, react re-renders the component
   // console.log("Body rendered")
@@ -33,7 +32,6 @@ export const Body = () => {
       }
 
       setResData(restaurantsData)
-      setFiltered(restaurantsData)
     } catch {
       setError(true)
     }
@@ -53,62 +51,60 @@ export const Body = () => {
 
   return (
     <main className="w-full min-w-0 h-full space-y-5">
-      <div className="w-full flex">
-        <form
-          className="w-full flex gap-2 h-fit"
-          onSubmit={(e) => {
-            e.preventDefault()
-            const filtered = resData.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()))
-
-            setFiltered(filtered)
-          }}
-        >
-          <input
-            type="text"
-            name="search"
-            id="search"
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            className="p-2 border border-input rounded-md max-w-48"
-            placeholder="Search anything..."
-          />
-          <button type="submit" className="p-2 border rounded-md">
-            Search
-          </button>
-        </form>
-        <button
-          onClick={() => {
-            // const filtered = mockData.filter((res) => res.info.avgRating > 4)
-            // setResData(filtered)
-          }}
-          className="p-2 border rounded-md h-fit w-fit whitespace-nowrap hidden sm:block"
-        >
-          Ratings above 4
-        </button>
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5 items-start  gap-3 h-full w-full">
-        {resData?.length === 0 ? (
-          <Skeleton />
-        ) : (
-          filtered?.map((restaurant) =>
-            restaurant?.info?.aggregatedDiscountInfoV3 ? (
-              <RestaurantCardPromoted key={restaurant?.info?.id} info={restaurant?.info} />
-            ) : (
-              <RestaurantCard key={restaurant?.info?.id} info={restaurant?.info} />
-            )
-          )
-        )}
-      </div>
+      <BodyHeader
+        setFiltered={setFiltered}
+        resData={resData}
+        searchText={searchText}
+        setSearchText={setSearchText}
+        filtered={filtered}
+      />
+      <RestuarantCardsGrid loading={resData?.length === 0} data={filtered} />
+      {resData?.length ? <CursorBasedPagination data={resData} setFiltered={setFiltered} filtered={filtered} /> : null}
+      {/* {resData?.length ? <BodyPagination data={resData} setFiltered={setFiltered} /> : null} */}
     </main>
   )
 }
 
-export function Skeleton() {
+export const CursorBasedPagination = ({ data: ogData, setFiltered, filtered }) => {
+  const pageSize = 5
+  const data = ogData?.map((e, i) => ({ ...e, pId: i + 1 }))
+  const [cursor, setCursor] = useState(null)
+
+  useEffect(() => {
+    handlePagination()
+  }, [])
+
+  const handlePagination = () => {
+    let newItems = []
+    if (cursor === null) {
+      newItems = data?.slice(0, pageSize) || []
+    } else {
+      const cursorIndex = data?.findIndex((itm) => itm.pId === cursor)
+      if (cursorIndex !== -1) {
+        newItems = data?.slice(cursorIndex + 1, cursorIndex + 1 + pageSize)
+      }
+    }
+
+    if (newItems.length > 0) {
+      setCursor(newItems[newItems.length - 1].pId)
+    }
+
+    setFiltered((prev) => [...prev, ...newItems])
+  }
+
+  const hasMore = filtered?.length < data?.length
+
   return (
-    <>
-      {[0, 1, 2, 3, 4, 69, 90, 6, 67].map((restaurant) => (
-        <div key={restaurant} className="res-card-skeleton skeleton"></div>
-      ))}
-    </>
+    <div className="w-full flex justify-center items-center">
+      <button
+        disabled={!hasMore}
+        onClick={() => {
+          handlePagination()
+        }}
+        className={"disabled:cursor-not-allowed"}
+      >
+        Load More
+      </button>
+    </div>
   )
 }

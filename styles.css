@@ -121,4 +121,7 @@
   body {
     @apply bg-background text-foreground;
   }
+  button {
+    @apply cursor-pointer p-2 px-3.5 text-sm border rounded-md h-fit w-fit whitespace-nowrap hidden sm:block bg-accent;
+  }
 }
