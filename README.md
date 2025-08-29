@@ -85,3 +85,8 @@ Components:
 // Dynamic import
 // On demand loading
 // Image optimization
+
+## Types of pagination
+
+- Offset pagination
+- Cursor based pagination

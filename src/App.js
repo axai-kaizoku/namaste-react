@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect } from "react"
 import ReactDOM from "react-dom/client"
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router"
-import { Body } from "./components/body"
+import { Body } from "./components/body/body"
 import { Contact } from "./components/contact"
 import { Error } from "./components/error"
 import { Header } from "./components/header"
