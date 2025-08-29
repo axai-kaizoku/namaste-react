@@ -7,6 +7,7 @@ export const Body = () => {
   const [resData, setResData] = useState([])
   const [filtered, setFiltered] = useState([])
   const [searchText, setSearchText] = useState("")
+  const [error, setError] = useState(false)
 
   const onlineState = useOnlineStatus()
 
@@ -20,18 +21,26 @@ export const Body = () => {
   }, [])
 
   async function fetchData() {
-    const res = await fetch(BASE_ALL_RESTAURANTS_URL)
+    try {
+      const res = await fetch(BASE_ALL_RESTAURANTS_URL)
 
-    const data = await res.json()
+      const data = await res.json()
 
-    let restaurantsData = data.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      let restaurantsData = data.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
 
-    if (!data.data?.cards[1].card.card.gridElements) {
-      restaurantsData = data.data?.cards[2].card.card.gridElements.infoWithStyle.restaurants
+      if (!data.data?.cards[1].card.card.gridElements) {
+        restaurantsData = data.data?.cards[2].card.card.gridElements.infoWithStyle.restaurants
+      }
+
+      setResData(restaurantsData)
+      setFiltered(restaurantsData)
+    } catch {
+      setError(true)
     }
+  }
 
-    setResData(restaurantsData)
-    setFiltered(restaurantsData)
+  if (error) {
+    return <h1 className="text-center text-5xl font-semibold">Error fetching data !</h1>
   }
 
   if (!onlineState) {

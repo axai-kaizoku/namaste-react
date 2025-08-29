@@ -28,6 +28,11 @@ export const Header = () => {
               <Link to="/contact">Contact us</Link>
             </li>
             <li>
+              <a href="https://github.com/axai-kaizoku/namaste-react" target="blank" className="cursor-pointer">
+                Github
+              </a>
+            </li>
+            <li>
               <Link to="/grocery">Grocery</Link>
             </li>
             <li>Cart</li>
