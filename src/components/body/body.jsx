@@ -37,16 +37,16 @@ export const Body = () => {
     }
   }
 
-  if (error) {
-    return <h1 className="text-center text-5xl font-semibold">Error fetching data !</h1>
-  }
-
   if (!onlineState) {
     return (
       <div>
         <h1 className="text-center">Look's like you've gone offline !!</h1>
       </div>
     )
+  }
+
+  if (error) {
+    return <h1 className="text-center text-5xl font-semibold">Error fetching data !</h1>
   }
 
   return (
