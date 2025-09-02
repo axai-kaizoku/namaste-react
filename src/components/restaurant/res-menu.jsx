@@ -12,17 +12,19 @@ export default function ResMenu() {
 
   const { name, cuisines, costForTwoMessage } = resInfo?.cards[2]?.card?.card?.info
 
-  const wholeMenu = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards
-  console.log(wholeMenu)
+  const wholeMenu = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+    (data) => data?.card?.card?.itemCards || data?.card?.card?.categories
+  )
+  // console.log(wholeMenu)
 
   return (
-    <section className="w-full">
-      <h1>{name}</h1>
+    <section className="w-full space-y-2">
+      <h1 className="text-center text-3xl font-bold">{name}</h1>
 
-      <h3>{cuisines.join(", ")}</h3>
-      <h3>{costForTwoMessage}</h3>
+      <h3 className="text-center text-lg font-semibold">{cuisines.join(", ")}</h3>
+      <h3 className="text-center text-sm">{costForTwoMessage}</h3>
       <br />
-      <h2>Menu</h2>
+      <h2 className="text-center text-xl">Menu</h2>
 
       <MenuItemList key="menu-item" data={wholeMenu} />
     </section>

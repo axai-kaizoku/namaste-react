@@ -2,13 +2,27 @@ import { BASE_IMG_URL } from "../../utils/constants"
 import { cn } from "../../utils/utils"
 import { useState } from "react"
 
-export const MenuItemCard = ({ data }) => {
+export const MenuItemCard = ({ data, open, onOpenChange }) => {
+  const [open2, setOpen2] = useState(undefined)
+
   return (
-    <Accordion title={data?.card?.card?.title ?? "--"} key={data?.card?.card?.title ?? "-"}>
+    <Accordion
+      open={open}
+      onOpenChange={onOpenChange}
+      title={data?.card?.card?.title ?? "--"}
+      key={data?.card?.card?.title ?? "-"}
+    >
       <ul>
         {data?.card?.card?.categories
           ? data?.card?.card?.categories?.map((card) => (
-              <Accordion title={card?.title} key={card?.title} outerClassName={"w-11/12"} className={"w-11/12"}>
+              <Accordion
+                open={open2 === card?.title}
+                onOpenChange={() => setOpen2((prev) => (prev === card?.title ? undefined : card?.title))}
+                title={card?.title}
+                key={card?.title}
+                outerClassName={"w-11/12"}
+                className={"w-11/12"}
+              >
                 <ul>
                   {card?.itemCards?.map((c) => (
                     <SingleItemCard
@@ -38,18 +52,17 @@ export const MenuItemCard = ({ data }) => {
   )
 }
 
-export const Accordion = ({ children, title, className, outerClassName }) => {
-  const [open, setOpen] = useState(false)
+export const Accordion = ({ children, title, className, outerClassName, open, onOpenChange }) => {
   return (
-    <details open={open}>
-      <summary
-        onClick={() => setOpen((prev) => !prev)}
-        className={cn("w-1/2 border p-2 rounded bg-card shadow my-1 mx-auto", outerClassName)}
+    <div>
+      <div
+        onClick={onOpenChange}
+        className={cn("w-1/2 cursor-pointer border p-2 rounded bg-card shadow my-1 mx-auto", outerClassName)}
       >
         {title}
-      </summary>
-      <div className={cn("flex flex-col gap h-full w-1/2 mx-auto", className)}>{children}</div>
-    </details>
+      </div>
+      {open && <div className={cn("flex flex-col gap h-full w-1/2 mx-auto", className)}>{children}</div>}
+    </div>
   )
 }
 
