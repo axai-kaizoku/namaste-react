@@ -1,13 +1,17 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { Link } from "react-router"
 import { useOnlineStatus } from "../hooks/use-online-status"
 import { LOGO_URL } from "../utils/constants"
 import ThemeToggle from "./theme-toggle"
+import UserContext from "../utils/user-context"
 
 export const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login")
 
   const onlineState = useOnlineStatus()
+
+  const data = useContext(UserContext)
+  // console.log(data)
 
   return (
     <>
@@ -47,6 +51,8 @@ export const Header = () => {
             >
               {btnNameReact}
             </button>
+
+            <li>{data?.loggedInUser}</li>
           </ul>
         </div>
       </header>
