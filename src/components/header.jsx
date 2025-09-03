@@ -1,17 +1,17 @@
-import { useState, useContext } from "react"
+import { useState } from "react"
 import { Link } from "react-router"
 import { useOnlineStatus } from "../hooks/use-online-status"
+import { useUser } from "../hooks/use-user"
 import { LOGO_URL } from "../utils/constants"
 import ThemeToggle from "./theme-toggle"
-import UserContext from "../utils/user-context"
 
 export const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login")
 
   const onlineState = useOnlineStatus()
 
-  const data = useContext(UserContext)
-  // console.log(data)
+  const data = useUser()
+  console.log(data)
 
   return (
     <>
@@ -43,16 +43,20 @@ export const Header = () => {
             <li>
               <ThemeToggle />
             </li>
-            <button
+            {/* <button
               className="login-btn"
               onClick={() => {
                 btnNameReact === "Login" ? setBtnNameReact("Logout") : setBtnNameReact("Login")
               }}
             >
               {btnNameReact}
-            </button>
+            </button> */}
 
-            <li>{data?.loggedInUser}</li>
+            <li>
+              <Link to="/login">{data?.loggedInUser ? data.loggedInUser : "Login"}</Link>
+            </li>
+
+            <li></li>
           </ul>
         </div>
       </header>

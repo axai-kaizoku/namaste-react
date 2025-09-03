@@ -1,11 +1,10 @@
 import { Link } from "react-router"
+import { useUser } from "../hooks/use-user"
 import { BASE_IMG_URL } from "../utils/constants"
-import { useContext } from "react"
-import UserContext from "../utils/user-context"
 
 export const RestaurantCard = (props) => {
   const { name, cuisines, avgRating, sla, cloudinaryImageId } = props?.info
-  const { loggedInUser } = useContext(UserContext)
+  const { loggedInUser } = useUser()
   return (
     <Link to={"/restaurant/" + props?.info?.id} className="block">
       <div className="w-48  sm:w-56 h-fit   sm:aspect-[1/2] border p-3 rounded-lg bg-card/40 hover:bg-card flex flex-col justify-between  gap-2">

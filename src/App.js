@@ -1,30 +1,21 @@
-import React, { lazy, Suspense, useState, useEffect } from "react"
+import React, { lazy, Suspense, useEffect } from "react"
 import ReactDOM from "react-dom/client"
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router"
 import { Body } from "./components/body/body"
 import { Contact } from "./components/contact"
 import { Error } from "./components/error"
 import { Header } from "./components/header"
+import LoginPage from "./components/login/login-page"
 import ResMenu from "./components/restaurant/res-menu"
 import { applyTheme, getStoredTheme } from "./utils/theme-config"
-import UserContext from "./utils/user-context"
+import { UserContextProvider } from "./utils/user-context"
 
 const About = lazy(() => import("./components/about"))
 const Grocery = lazy(() => import("./components/grocery"))
 
 const AppLayout = () => {
-  const [userName, setUserName] = useState()
-
-  //authentication
-  useEffect(() => {
-    //sending username and password
-    // User Details
-    const data = { name: "Akshay Yelle" }
-    setUserName(data.name)
-  }, [])
-
   return (
-    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+    <UserContextProvider>
       <div className="flex min-h-screen flex-col">
         {/* <UserContext.Provider value={{ loggedInUser: "Roronoa Zoro" }}> */}
         <Header />
@@ -33,7 +24,7 @@ const AppLayout = () => {
           <Outlet />
         </div>
       </div>
-    </UserContext.Provider>
+    </UserContextProvider>
   )
 }
 
@@ -69,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/restaurant/:id",
         element: <ResMenu />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
       },
     ],
     errorElement: <Error />,

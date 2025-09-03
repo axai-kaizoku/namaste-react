@@ -1,8 +1,7 @@
-import { useContext } from "react"
-import UserContext from "../../utils/user-context"
+import { useUser } from "../../hooks/use-user"
 
 export const BodyHeader = ({ setFiltered, resData, searchText, setSearchText, filtered }) => {
-  const { loggedInUser, setUserName } = useContext(UserContext)
+  const { loggedInUser, setUserName } = useUser()
 
   return (
     <header className="w-full flex justify-between gap-2">
