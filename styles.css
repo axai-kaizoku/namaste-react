@@ -122,6 +122,9 @@
     @apply bg-background text-foreground;
   }
   button {
-    @apply cursor-pointer p-2 px-3.5 text-sm border rounded-md h-fit w-fit whitespace-nowrap hidden sm:block bg-accent;
+    @apply cursor-pointer p-2 px-3.5 text-sm border rounded-md h-fit w-fit line-clamp-1 hidden sm:block bg-accent;
+  }
+  input {
+    @apply p-2 px-3.5 text-sm border rounded-md h-fit w-fit hidden sm:block bg-accent/5;
   }
 }

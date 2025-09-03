@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from "react"
+import React, { lazy, Suspense, useState, useEffect } from "react"
 import ReactDOM from "react-dom/client"
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router"
 import { Body } from "./components/body/body"
@@ -7,20 +7,33 @@ import { Error } from "./components/error"
 import { Header } from "./components/header"
 import ResMenu from "./components/restaurant/res-menu"
 import { applyTheme, getStoredTheme } from "./utils/theme-config"
+import UserContext from "./utils/user-context"
 
 const About = lazy(() => import("./components/about"))
 const Grocery = lazy(() => import("./components/grocery"))
 
 const AppLayout = () => {
-  // const { theme } = useTheme()
+  const [userName, setUserName] = useState()
+
+  //authentication
+  useEffect(() => {
+    //sending username and password
+    // User Details
+    const data = { name: "Akshay Yelle" }
+    setUserName(data.name)
+  }, [])
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <div className="max-w-7xl mx-auto p-5 flex w-full grow gap-5">
-        <Outlet />
+    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+      <div className="flex min-h-screen flex-col">
+        {/* <UserContext.Provider value={{ loggedInUser: "Roronoa Zoro" }}> */}
+        <Header />
+        {/* </UserContext.Provider> */}
+        <div className="max-w-7xl mx-auto p-5 flex w-full grow gap-5">
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </UserContext.Provider>
   )
 }
 

@@ -54,7 +54,9 @@ class About extends React.Component {
         <h2>This is about us page</h2>
         <div className="flex flex-row gap m-4">
           <User />
-          <UserContext.Consumer>{(data) => console.log(data)}</UserContext.Consumer>
+          <UserContext.Consumer>
+            {(data) => <h1 className="text-2xl">LoggedIn User: {data.loggedInUser}</h1>}
+          </UserContext.Consumer>
           <UserClass name={"@" + login} location={name} />
           {/* <ExtraComponent /> */}
         </div>
