@@ -8,29 +8,33 @@ export const Body = () => {
   const [resData, setResData] = useState([])
   const [filtered, setFiltered] = useState([])
   const [searchText, setSearchText] = useState("")
+  const [error, setError] = useState(false)
 
   const onlineState = useOnlineStatus()
 
   // When ever a state variable changes, react re-renders the component
-  // console.log("Main Body rendered")
+  // console.log("Body rendered")
 
   useEffect(() => {
     fetchData()
-    // console.log("Main Body, useEffect")
   }, [])
 
   async function fetchData() {
-    const res = await fetch(BASE_ALL_RESTAURANTS_URL)
+    try {
+      const res = await fetch(BASE_ALL_RESTAURANTS_URL)
 
-    const data = await res.json()
+      const data = await res.json()
 
-    let restaurantsData = data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      let restaurantsData = data.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
 
-    if (!data?.data?.cards[1].card.card.gridElements) {
-      restaurantsData = data.data?.cards[2].card.card.gridElements.infoWithStyle.restaurants
+      if (!data.data?.cards[1].card.card.gridElements) {
+        restaurantsData = data.data?.cards[2].card.card.gridElements.infoWithStyle.restaurants
+      }
+
+      setResData(restaurantsData)
+    } catch {
+      setError(true)
     }
-
-    setResData(restaurantsData)
   }
 
   if (!onlineState) {
@@ -39,6 +43,10 @@ export const Body = () => {
         <h1 className="text-center">Look's like you've gone offline !!</h1>
       </div>
     )
+  }
+
+  if (error) {
+    return <h1 className="text-center text-5xl font-semibold">Error fetching data !</h1>
   }
 
   return (

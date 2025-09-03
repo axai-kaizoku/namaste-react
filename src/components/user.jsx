@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 export const User = ({ name }) => {
   const [count] = useState(0)
   const [count2] = useState(0)
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      console.log("setInterval from functional")
-    }, 1000)
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     console.log("setInterval from functional")
+  //   }, 1000)
 
-    return () => {
-      clearInterval(timer)
-    }
-  }, [])
+  //   return () => {
+  //     clearInterval(timer)
+  //   }
+  // }, [])
 
   return (
     <div className="border flex flex-col gap w-fit p-4 rounded m-4">

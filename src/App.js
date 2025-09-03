@@ -5,22 +5,26 @@ import { Body } from "./components/body/body"
 import { Contact } from "./components/contact"
 import { Error } from "./components/error"
 import { Header } from "./components/header"
+import LoginPage from "./components/login/login-page"
 import ResMenu from "./components/restaurant/res-menu"
 import { applyTheme, getStoredTheme } from "./utils/theme-config"
+import { UserContextProvider } from "./utils/user-context"
 
 const About = lazy(() => import("./components/about"))
 const Grocery = lazy(() => import("./components/grocery"))
 
 const AppLayout = () => {
-  // const { theme } = useTheme()
-
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <div className="max-w-7xl mx-auto p-5 flex w-full grow gap-5">
-        <Outlet />
+    <UserContextProvider>
+      <div className="flex min-h-screen flex-col">
+        {/* <UserContext.Provider value={{ loggedInUser: "Roronoa Zoro" }}> */}
+        <Header />
+        {/* </UserContext.Provider> */}
+        <div className="max-w-7xl mx-auto p-5 flex w-full grow gap-5">
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </UserContextProvider>
   )
 }
 
@@ -56,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/restaurant/:id",
         element: <ResMenu />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
       },
     ],
     errorElement: <Error />,

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router"
 import { useOnlineStatus } from "../hooks/use-online-status"
+import { useUser } from "../hooks/use-user"
 import { LOGO_URL } from "../utils/constants"
 import ThemeToggle from "./theme-toggle"
 
@@ -8,6 +9,9 @@ export const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login")
 
   const onlineState = useOnlineStatus()
+
+  const data = useUser()
+  console.log(data)
 
   return (
     <>
@@ -28,20 +32,31 @@ export const Header = () => {
               <Link to="/contact">Contact us</Link>
             </li>
             <li>
+              <a href="https://github.com/axai-kaizoku/namaste-react" target="blank" className="cursor-pointer">
+                Github
+              </a>
+            </li>
+            <li>
               <Link to="/grocery">Grocery</Link>
             </li>
             <li>Cart</li>
             <li>
               <ThemeToggle />
             </li>
-            <button
+            {/* <button
               className="login-btn"
               onClick={() => {
                 btnNameReact === "Login" ? setBtnNameReact("Logout") : setBtnNameReact("Login")
               }}
             >
               {btnNameReact}
-            </button>
+            </button> */}
+
+            <li>
+              <Link to="/login">{data?.loggedInUser ? data.loggedInUser : "Login"}</Link>
+            </li>
+
+            <li></li>
           </ul>
         </div>
       </header>

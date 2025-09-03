@@ -1,6 +1,7 @@
 import React from "react"
 import UserClass, { ExtraComponent } from "./user-class"
 import { User } from "./user"
+import UserContext from "../utils/user-context"
 
 class About extends React.Component {
   constructor(props) {
@@ -16,9 +17,9 @@ class About extends React.Component {
   }
 
   componentDidMount() {
-    this.timer = setInterval(() => {
-      console.log("This is timer")
-    }, 1000)
+    // this.timer = setInterval(() => {
+    //   console.log("This is timer")
+    // }, 1000)
 
     fetch("https://api.github.com/users/axai-kaizoku")
       .then((res) => {
@@ -53,8 +54,11 @@ class About extends React.Component {
         <h2>This is about us page</h2>
         <div className="flex flex-row gap m-4">
           <User />
+          <UserContext.Consumer>
+            {(data) => <h1 className="text-2xl">LoggedIn User: {data.loggedInUser}</h1>}
+          </UserContext.Consumer>
           <UserClass name={"@" + login} location={name} />
-          <ExtraComponent />
+          {/* <ExtraComponent /> */}
         </div>
       </div>
     )
