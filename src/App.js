@@ -1,32 +1,34 @@
-import React, { lazy, Suspense, useEffect } from "react"
-import ReactDOM from "react-dom/client"
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router"
-import { Body } from "./components/body/body"
-import { Contact } from "./components/contact"
-import { Error } from "./components/error"
-import { Header } from "./components/header"
-import LoginPage from "./components/login/login-page"
-import ResMenu from "./components/restaurant/res-menu"
-import { applyTheme, getStoredTheme } from "./utils/theme-config"
-import { UserContextProvider } from "./utils/user-context"
+import React, { lazy, Suspense } from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
+import { Body } from "./components/body/body";
+import { Contact } from "./components/contact";
+import { Error } from "./components/error";
+import { Header } from "./components/header";
+import LoginPage from "./components/login/login-page";
+import ResMenu from "./components/restaurant/res-menu";
+import appStore from "./utils/store/app-store";
+import { UserContextProvider } from "./utils/user-context";
+import { CartPage } from "./components/cart/cart-page";
 
-const About = lazy(() => import("./components/about"))
-const Grocery = lazy(() => import("./components/grocery"))
+const About = lazy(() => import("./components/about"));
+const Grocery = lazy(() => import("./components/grocery"));
 
 const AppLayout = () => {
   return (
-    <UserContextProvider>
-      <div className="flex min-h-screen flex-col">
-        {/* <UserContext.Provider value={{ loggedInUser: "Roronoa Zoro" }}> */}
-        <Header />
-        {/* </UserContext.Provider> */}
-        <div className="max-w-7xl mx-auto p-5 flex w-full grow gap-5">
-          <Outlet />
+    <Provider store={appStore}>
+      <UserContextProvider>
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <div className="max-w-7xl mx-auto p-5 flex w-full grow gap-5">
+            <Outlet />
+          </div>
         </div>
-      </div>
-    </UserContextProvider>
-  )
-}
+      </UserContextProvider>
+    </Provider>
+  );
+};
 
 const router = createBrowserRouter([
   {
@@ -65,22 +67,15 @@ const router = createBrowserRouter([
         path: "/login",
         element: <LoginPage />,
       },
+      {
+        path: "/cart",
+        element: <CartPage />,
+      },
     ],
     errorElement: <Error />,
   },
-])
+]);
 
-// Theme provider wrapper
-const ThemedApp = () => {
-  useEffect(() => {
-    // Initialize theme on app load
-    const storedTheme = getStoredTheme()
-    applyTheme(storedTheme)
-  }, [])
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-  return <RouterProvider router={router} />
-}
-
-const root = ReactDOM.createRoot(document.getElementById("root"))
-
-root.render(<ThemedApp />)
+root.render(<RouterProvider router={router} />);

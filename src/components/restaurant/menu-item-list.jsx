@@ -1,8 +1,8 @@
-import { MenuItemCard } from "./menu-item-card"
-import { useState } from "react"
+import { MenuItemCard } from "./menu-item-card";
+import { useState } from "react";
 
 export const MenuItemList = ({ data }) => {
-  const [open, setOpen] = useState(undefined)
+  const [open, setOpen] = useState(0);
 
   return (
     <div>
@@ -15,5 +15,5 @@ export const MenuItemList = ({ data }) => {
         />
       ))}
     </div>
-  )
-}
+  );
+};

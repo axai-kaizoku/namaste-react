@@ -1,17 +1,17 @@
-import { useState } from "react"
-import { Link } from "react-router"
-import { useOnlineStatus } from "../hooks/use-online-status"
-import { useUser } from "../hooks/use-user"
-import { LOGO_URL } from "../utils/constants"
-import ThemeToggle from "./theme-toggle"
+import { useState } from "react";
+import { Link } from "react-router";
+import { useOnlineStatus } from "../hooks/use-online-status";
+import { useUser } from "../hooks/use-user";
+import { LOGO_URL } from "../utils/constants";
+import ThemeToggle from "./theme-toggle";
+import { useSelector } from "react-redux";
+import { jsonStringify } from "../utils/utils";
 
 export const Header = () => {
-  const [btnNameReact, setBtnNameReact] = useState("Login")
+  const onlineState = useOnlineStatus();
 
-  const onlineState = useOnlineStatus()
-
-  const data = useUser()
-  console.log(data)
+  const data = useUser();
+  const cart = useSelector((store) => store.cart.items);
 
   return (
     <>
@@ -39,7 +39,9 @@ export const Header = () => {
             <li>
               <Link to="/grocery">Grocery</Link>
             </li>
-            <li>Cart</li>
+            <li>
+              <Link to="/cart">🛒 ({cart.length} Items)</Link>
+            </li>
             <li>
               <ThemeToggle />
             </li>
@@ -71,5 +73,5 @@ export const Header = () => {
       </div>
     </div> */}
     </>
-  )
-}
+  );
+};
