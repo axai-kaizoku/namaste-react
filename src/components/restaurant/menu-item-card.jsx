@@ -1,9 +1,11 @@
-import { BASE_IMG_URL } from "../../utils/constants"
-import { cn } from "../../utils/utils"
-import { useState } from "react"
+import { useDispatch } from "react-redux";
+import { BASE_IMG_URL } from "../../utils/constants";
+import { cn } from "../../utils/utils";
+import { useState } from "react";
+import { addItem } from "../../utils/store/slices/cart-slice";
 
 export const MenuItemCard = ({ data, open, onOpenChange }) => {
-  const [open2, setOpen2] = useState(undefined)
+  const [open2, setOpen2] = useState(0);
 
   return (
     <Accordion
@@ -24,65 +26,109 @@ export const MenuItemCard = ({ data, open, onOpenChange }) => {
                 className={"w-11/12"}
               >
                 <ul>
-                  {card?.itemCards?.map((c) => (
-                    <SingleItemCard
-                      key={c?.card?.info?.id}
-                      name={c?.card?.info?.name}
-                      defaultPrice={c?.card?.info?.defaultPrice}
-                      description={c?.card?.info?.description}
-                      imageId={c?.card?.info?.imageId}
-                      price={c?.card?.info?.price}
-                    />
+                  {card?.itemCards?.map((item) => (
+                    <SingleItemCard key={item?.card?.info?.id} item={item?.card?.info} />
                   ))}
                 </ul>
               </Accordion>
             ))
-          : data?.card?.card?.itemCards?.map((card) => (
-              <SingleItemCard
-                key={card?.card?.info?.id}
-                name={card?.card?.info?.name}
-                defaultPrice={card?.card?.info?.defaultPrice}
-                description={card?.card?.info?.description}
-                imageId={card?.card?.info?.imageId}
-                price={card?.card?.info?.price}
-              />
+          : data?.card?.card?.itemCards?.map((item) => (
+              <SingleItemCard key={item?.card?.info?.id} item={item?.card?.info} />
             ))}
       </ul>
     </Accordion>
-  )
-}
+  );
+};
 
 export const Accordion = ({ children, title, className, outerClassName, open, onOpenChange }) => {
   return (
     <div>
       <div
         onClick={onOpenChange}
-        className={cn("w-1/2 cursor-pointer border p-2 rounded bg-card shadow my-1 mx-auto", outerClassName)}
+        className={cn(
+          "w-[75%]  cursor-pointer border p-2 rounded bg-card shadow my-3 mx-auto flex justify-between items-center",
+          outerClassName
+        )}
       >
         {title}
+        <div>↓</div>
       </div>
-      {open && <div className={cn("flex flex-col gap h-full w-1/2 mx-auto", className)}>{children}</div>}
+      {open ? <div className={cn("flex flex-col gap h-full w-[75%] mx-auto", className)}>{children}</div> : null}
     </div>
-  )
-}
+  );
+};
 
-export const SingleItemCard = ({ name, price, defaultPrice, description, imageId }) => (
-  <li>
-    <div className="flex flex-row p-4 h-full gap-4 items-center justify-start border rounded m-4">
-      <div className="flex flex-col items-start justify-start  gap-3 w-9/12">
-        <h1 className="font-semibold">{name}</h1>
-        <span className="text-sm">₹{price ? price / 100 : defaultPrice / 100}</span>
-        <p className="text-xs">{description}</p>
+export const SingleItemCard = ({ item, actionButton }) => {
+  const [showMore, setShowMore] = useState(false);
+  const dispatch = useDispatch();
+
+  const { name, defaultPrice, description, imageId, price } = item;
+
+  const handleAdd = (item) => {
+    dispatch(addItem(item));
+  };
+  return (
+    <li>
+      <div
+        className={cn(
+          "flex transition-all flex-row p-4 h-32 gap-4 items-center justify-start border rounded m-4",
+          "h-40"
+        )}
+      >
+        <div className="flex flex-col items-start justify-start  gap-3 w-9/12">
+          <h1 className="font-semibold">{name}</h1>
+          <span className="text-sm">₹{price ? price / 100 : defaultPrice / 100}</span>
+          <div className="text-xs">
+            <div>
+              {(() => {
+                const fullDescription = description;
+                const descLength = fullDescription?.length;
+
+                if (descLength < 200) {
+                  return fullDescription;
+                }
+
+                const trimmed = description?.slice(0, descLength / 2);
+                return showMore ? (
+                  <>{fullDescription}</>
+                ) : (
+                  <span>
+                    {trimmed}...{" "}
+                    <button
+                      className="inline p-0 font-bold text-xs bg-transparent border-none  cursor-pointer"
+                      onClick={() => setShowMore((prev) => !prev)}
+                    >
+                      show more
+                    </button>
+                  </span>
+                );
+              })()}
+            </div>
+          </div>
+        </div>
+        <div className="w-3/12 relative h-full">
+          <img
+            src={BASE_IMG_URL + imageId}
+            alt={name}
+            className="object-contain mx-auto rounded-lg w-28 h-24"
+            width={200}
+            height={200}
+          />
+          {!actionButton ? (
+            <div className="absolute bottom-[2%] w-full">
+              <button
+                onClick={() => handleAdd(item)}
+                className="w-3/4 mx-auto bg-muted hover:border hover:border-dashed hover:border-foreground"
+                title="Add item"
+              >
+                Add
+              </button>
+            </div>
+          ) : (
+            actionButton
+          )}
+        </div>
       </div>
-      <div className="w-3/12">
-        <img
-          src={BASE_IMG_URL + imageId}
-          alt={name}
-          className="object-contain rounded w-28 h-28"
-          width={200}
-          height={200}
-        />
-      </div>
-    </div>
-  </li>
-)
+    </li>
+  );
+};

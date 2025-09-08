@@ -90,3 +90,12 @@ Components:
 
 - Offset pagination
 - Cursor based pagination
+
+## Redux
+
+- [ ] pnpm run @reduxjs/toolkit react-redux
+- [ ] build our store
+- [ ] connect our store to our app
+- [ ] create a cart slice
+- [ ] dispatch an action
+- [ ] selector
