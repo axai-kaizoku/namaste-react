@@ -113,3 +113,5 @@ Components:
 - install babel and jest dependencies for testing
 - add babel cofig
 - configure parcel config file to disable default babel transpilation
+- jest configuration
+- add jsdom library
