@@ -1,38 +1,58 @@
-import { useState, useEffect } from "react"
-
 export const Contact = () => {
-  const [count, setCount] = useState(1)
-  let [newCount, setNewCount] = useState(3)
-
-  useEffect(() => {
-    // console.clear("count changed new", count)
-  }, [])
-
-  useEffect(() => {
-    console.log("count changed", count)
-  }, [newCount])
-
-  useEffect(() => {
-    setCount(2)
-  }, [setCount])
-
-  useEffect(() => {
-    console.log("count changed")
-  }, [count, newCount])
+  function handleSubmit(e) {
+    e.preventDefault();
+    const name = e.target[0].value;
+    const pass = e.target[1].value;
+    console.log(name, pass);
+  }
 
   return (
-    <div>
-      <h1>Contact</h1>
+    <div className="h-[80vh] w-full">
+      <h1 className="text-2xl font-bold text-center">Contact</h1>
 
-      <h2>Contact us.</h2>
+      <div className="w-40 mx-auto h-full">
+        <form onSubmit={handleSubmit} className="space-y-5 my-4">
+          <div className="flex items-center gap-2">
+            <label htmlFor="username">Name: </label>
+            <input
+              type="text"
+              placeholder="Name"
+              id="username"
+              className="border border-foreground"
+              required
+              name="username"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <label htmlFor="email">Email: </label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Email"
+              required
+              className="border border-foreground"
+              name="email"
+            />
+          </div>
+          <div className="flex items-start gap-2 w-full">
+            <label htmlFor="feedback">Feedback: </label>
+            <textarea
+              id="feedback"
+              className="border p-2 text-sm border-foreground rounded-md min-w-[200px] min-h-[80px] resize"
+              required
+              cols={30}
+              rows={4}
+              name="feedback"
+              placeholder="Enter your feedback here..."
+            ></textarea>
+          </div>
 
-      <button onClick={() => setCount((prev) => prev + 1)} className="btn">
-        Increase count:{count}
-      </button>
-
-      <button onClick={() => setNewCount((prev) => prev + 1)} className="btn">
-        Increase new count:{newCount}
-      </button>
+          <p className="text-xs">hint: username=anything, password=anything</p>
+          <button type="submit" className="w-full">
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
-  )
-}
+  );
+};
