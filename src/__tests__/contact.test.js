@@ -3,6 +3,21 @@ import { render, screen } from "@testing-library/react";
 import { Contact } from "../components/contact";
 
 describe("Contactus page test cases", () => {
+  // beforeAll(() => {
+  //   console.log("Before All");
+  // });
+
+  // beforeEach(() => {
+  //   console.log("Before each");
+  // });
+
+  // afterAll(() => {
+  //   console.log("After All");
+  // });
+
+  // afterEach(() => {
+  //   console.log("After each");
+  // });
   test("Should load ContactUs Component", () => {
     render(<Contact />);
 

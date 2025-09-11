@@ -70,6 +70,7 @@ export const SingleItemCard = ({ item, actionButton }) => {
   return (
     <li>
       <div
+        data-testid="foodItemCard"
         className={cn(
           "flex transition-all flex-row p-4 h-32 gap-4 items-center justify-start border rounded m-4",
           "h-40"

@@ -6,7 +6,7 @@ export const RestaurantCard = ({ data }) => {
   const { name, cuisines, avgRating, sla, cloudinaryImageId } = data;
   const { loggedInUser } = useUser();
   return (
-    <Link to={"/restaurant/" + data?.info?.id} className="block">
+    <Link to={"/restaurant/" + data?.id} className="block">
       <div
         data-testid="resCard"
         className="w-48  sm:w-56 h-fit   sm:aspect-[1/2] border p-3 rounded-lg bg-card/40 hover:bg-card flex flex-col justify-between  gap-2"

@@ -24,7 +24,6 @@ export const Body = () => {
       const res = await fetch(BASE_ALL_RESTAURANTS_URL);
 
       const data = await res.json();
-      console.log(data);
 
       let restaurantsData = data.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
 
