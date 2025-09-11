@@ -93,9 +93,25 @@ Components:
 
 ## Redux
 
-- [ ] pnpm run @reduxjs/toolkit react-redux
-- [ ] build our store
-- [ ] connect our store to our app
-- [ ] create a cart slice
-- [ ] dispatch an action
-- [ ] selector
+- [x] pnpm run @reduxjs/toolkit react-redux
+- [x] build our store
+- [x] connect our store to our app
+- [x] create a cart slice
+- [x] dispatch an action
+- [x] selector
+
+## Types of testing - (developer)
+
+- Unit testing
+- Integration testing
+- End to end testing
+
+# Setting up testing in our app
+
+- install testing library react
+- install jest
+- install babel and jest dependencies for testing
+- add babel cofig
+- configure parcel config file to disable default babel transpilation
+- jest configuration
+- add jsdom library

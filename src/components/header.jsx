@@ -5,10 +5,10 @@ import { useUser } from "../hooks/use-user";
 import { LOGO_URL } from "../utils/constants";
 import ThemeToggle from "./theme-toggle";
 import { useSelector } from "react-redux";
-import { jsonStringify } from "../utils/utils";
 
 export const Header = () => {
   const onlineState = useOnlineStatus();
+  const [btnNameReact, setBtnNameReact] = useState("Login");
 
   const data = useUser();
   const cart = useSelector((store) => store.cart.items);
@@ -45,14 +45,14 @@ export const Header = () => {
             <li>
               <ThemeToggle />
             </li>
-            {/* <button
+            <button
               className="login-btn"
               onClick={() => {
-                btnNameReact === "Login" ? setBtnNameReact("Logout") : setBtnNameReact("Login")
+                btnNameReact === "Login" ? setBtnNameReact("Logout") : setBtnNameReact("Login");
               }}
             >
               {btnNameReact}
-            </button> */}
+            </button>
 
             <li>
               <Link to="/login">{data?.loggedInUser ? data.loggedInUser : "Login"}</Link>
