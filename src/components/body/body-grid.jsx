@@ -12,9 +12,9 @@ export const RestuarantCardsGrid = ({ data, loading }) => {
         <>
           {data?.map((restaurant) =>
             restaurant?.info?.aggregatedDiscountInfoV3 ? (
-              <RestaurantCardPromoted key={restaurant?.info?.id} info={restaurant?.info} />
+              <RestaurantCardPromoted key={restaurant?.info?.id} data={restaurant?.info} />
             ) : (
-              <RestaurantCard key={restaurant?.info?.id} info={restaurant?.info} />
+              <RestaurantCard key={restaurant?.info?.id} data={restaurant?.info} />
             )
           )}
         </>

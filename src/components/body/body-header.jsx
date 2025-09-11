@@ -1,7 +1,7 @@
-import { useUser } from "../../hooks/use-user"
+import { useUser } from "../../hooks/use-user";
 
 export const BodyHeader = ({ setFiltered, resData, searchText, setSearchText, filtered }) => {
-  const { loggedInUser, setUserName } = useUser()
+  const { loggedInUser, setUserName } = useUser();
 
   return (
     <header className="w-full flex justify-between gap-2">
@@ -10,16 +10,17 @@ export const BodyHeader = ({ setFiltered, resData, searchText, setSearchText, fi
           id="search-bar"
           className="w-fit flex gap-2 h-fit"
           onSubmit={(e) => {
-            e.preventDefault()
-            const filtered = resData.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()))
+            e.preventDefault();
+            const filtered = resData.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()));
 
-            setFiltered(filtered)
+            setFiltered(filtered);
           }}
         >
           <input
             type="text"
             name="search"
             id="search"
+            data-testid="searchInput"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             className="p-2 border border-input rounded-md max-w-48 text-sm"
@@ -29,8 +30,8 @@ export const BodyHeader = ({ setFiltered, resData, searchText, setSearchText, fi
         </form>
         <button
           onClick={() => {
-            const filtered = resData?.filter((res) => res.info.avgRating > 4.5)
-            setFiltered(filtered)
+            const filtered = resData?.filter((res) => res.info.avgRating > 4.5);
+            setFiltered(filtered);
           }}
         >
           Ratings above 4.5
@@ -39,8 +40,8 @@ export const BodyHeader = ({ setFiltered, resData, searchText, setSearchText, fi
           <button
             className="bg-transparent border hover:border-accent-foreground hover:border-dashed"
             onClick={() => {
-              setFiltered(resData)
-              if (searchText) setSearchText("")
+              setFiltered(resData);
+              if (searchText) setSearchText("");
             }}
           >
             Clear
@@ -59,5 +60,5 @@ export const BodyHeader = ({ setFiltered, resData, searchText, setSearchText, fi
         />
       </div>
     </header>
-  )
-}
+  );
+};
