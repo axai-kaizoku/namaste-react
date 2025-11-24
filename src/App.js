@@ -11,6 +11,7 @@ import ResMenu from "./components/restaurant/res-menu";
 import appStore from "./utils/store/app-store";
 import { UserContextProvider } from "./utils/user-context";
 import { CartPage } from "./components/cart/cart-page";
+import { PaginationPage } from "./components/pagination";
 
 const About = lazy(() => import("./components/about"));
 const Grocery = lazy(() => import("./components/grocery"));
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <CartPage />,
+      },
+      {
+        path: "/page",
+        element: <PaginationPage />,
       },
     ],
     errorElement: <Error />,
